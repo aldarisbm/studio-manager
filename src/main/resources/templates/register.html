@@ -94,29 +94,31 @@
                         <div class="input-group-addon" style="width: 2.6rem">
                             <i class="fa fa-repeat"></i>
                         </div>
-                        <input type="password" name="password-confirmation" class="form-control"
-                               id="password-confirm" placeholder="Password" required>
+                        <input type="password" name="verify" class="form-control"
+                               id="verify" placeholder="Password" required>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="dateOfBirth">Date Of Birth</label>
+                <label for="name">Key (enter 0)</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth"
-                               placeholder="Date Of Birth" required autofocus>
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="text" name="key" class="form-control" id="key"
+                               placeholder="Key" required autofocus>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
-                            <span class="text-danger align-middle" th:errors="*{dateOfBirth}"></span>
+                            <span class="text-danger align-middle" th:errors="*{name}"></span>
+                            <!-- Put name validation error messages here -->
                         </span>
                 </div>
             </div>
