@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value ="")
-public class index {
+public class IndexController {
 
     @Autowired
     UserDao userDao;
@@ -48,6 +48,12 @@ public class index {
                 }
             }
 
+            for(User aUser : userDao.findAll()){
+                if(aUser.getEmail().equals(user.getEmail())){
+                    return "register";
+                }
+            }
+
             if(key == 2299123){
                 String thePassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
                 user.setPassword(thePassword);
@@ -59,12 +65,16 @@ public class index {
                 user.setLevel(1);
                 user.setPassword(thePassword);
                 userDao.save(user);
-                return "welcome";
+                return "redirect:welcome";
             }
-            }
+        }
 
     }
 
+    @RequestMapping(value = "welcome")
+    public String welcome(){
+        return "welcome";
+    }
 
 
     @RequestMapping(value = "login")
