@@ -1,5 +1,6 @@
 package com.jberrio.studiomanager.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,8 +17,8 @@ public class User {
     @Size(min=6, max=12)
     private String name;
 
-    @NotNull
-    private String email;
+    @Column(nullable= false, unique = true)
+    private String username;
 
     @NotNull
     private String password;
@@ -36,12 +37,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public String getPassword() {

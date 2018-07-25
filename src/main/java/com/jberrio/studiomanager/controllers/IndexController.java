@@ -42,14 +42,9 @@ public class IndexController {
         } else if(!user.getPassword().equals(verify)) {
             return "register";
         } else {
-            for(User aUser : userDao.findAll()){
-                if(aUser.getName().equals(user.getName())){
-                    return "register";
-                }
-            }
 
             for(User aUser : userDao.findAll()){
-                if(aUser.getEmail().equals(user.getEmail())){
+                if(aUser.getUsername().equals(user.getUsername())){
                     return "register";
                 }
             }

@@ -10,7 +10,7 @@
 
 <div th:replace="fragments :: jumbo"></div>
 <div class="container">
-    <form class="form-horizontal" role="form" method="POST">
+    <form th:action="@{/login}" class="form-horizontal" role="form" method="POST">
         <div class="row">
             <div class="col-md-3 field-label-responsive">
                 <label for="email">Email</label>
@@ -20,7 +20,7 @@
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         <input type="text" name="username" class="form-control" id="email"
-                               placeholder="Your Name" required autofocus>
+                               placeholder="Email" required autofocus>
                     </div>
                 </div>
             </div>
