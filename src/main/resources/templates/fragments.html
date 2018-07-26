@@ -45,10 +45,10 @@
 
 
 <!--THIS IS A LOGGED IN USER BAR-->
-<div th:fragment="loggedIn"> <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+<div th:fragment="loggedIn"> <div class = "container text-right"><p th:inline="text">[[${#httpServletRequest.remoteUser}]] | <a th:href="@{/logout}">Log Out</a></p></div>
+<!--<form th:action="@{/logout}" method="post">-->
+    <!--<input type="submit" value="Sign Out"/>-->
+<!--</form>-->
 </div>
 
 <!--THESE ARE THE SCRIPTS-->
