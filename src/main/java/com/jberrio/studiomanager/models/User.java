@@ -1,32 +1,52 @@
 package com.jberrio.studiomanager.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
+@Table(name="user")
 public class User {
+
     @Id
     @GeneratedValue
+    @Column(name="user_id")
     private int id;
 
-    @NotNull
+    @NotNull(message= "Please provide your name")
     @Size(min=6, max=12)
     private String name;
 
     @Column(nullable= false, unique = true)
-    private String username;
+    @Email
+    @NotNull(message="Please provide your email")
+    private String email;
 
-    @NotNull
+    @NotEmpty
+    @Length(min=6, message = "Your password must have at least 6 characters")
     private String password;
 
-    @NotNull
-    private int level;
+    @Column(name = "active")
+    private int active;
+
+    @ManyToMany
+    @JoinTable(name="user_role",joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Set<Role> roles;
 
     public User() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,12 +57,12 @@ public class User {
         this.name = name;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String email) {
-        this.username = email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -53,11 +73,19 @@ public class User {
         this.password = password;
     }
 
-    public int getLevel() {
-        return level;
+    public int getActive() {
+        return active;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
