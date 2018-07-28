@@ -95,7 +95,6 @@ public class IndexController {
         modelAndView.setViewName("instructors");
         return modelAndView;
     }
-
 }
 
 //
