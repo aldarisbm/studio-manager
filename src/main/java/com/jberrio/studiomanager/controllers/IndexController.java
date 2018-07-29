@@ -23,6 +23,7 @@ public class IndexController {
     @RequestMapping(value={"/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("jumbo","Log In");
         modelAndView.setViewName("login");
         return modelAndView;
     }
@@ -32,6 +33,7 @@ public class IndexController {
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
+        modelAndView.addObject("jumbo","Register");
         modelAndView.addObject("user", user);
         modelAndView.setViewName("register");
         return modelAndView;
@@ -50,30 +52,30 @@ public class IndexController {
             modelAndView.setViewName("register");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("register");
-
+            modelAndView.addObject("jumbo","Welcome");
+            modelAndView.setViewName("welcome");
         }
         return modelAndView;
     }
 
-    @RequestMapping(value="welcome", method = RequestMethod.GET)
-    public ModelAndView home(){
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("welcome");
-        return modelAndView;
-    }
+//    @RequestMapping(value="welcome", method = RequestMethod.GET)
+//    public ModelAndView home(){
+//        ModelAndView modelAndView = new ModelAndView();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User user = userService.findUserByEmail(auth.getName());
+//        modelAndView.addObject("userName", "Welcome " + user.getName() + " (" + user.getEmail() + ")");
+//        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+//        modelAndView.addObject("jumbo","Welcome");
+//        modelAndView.setViewName("welcome");
+//        return modelAndView;
+//    }
 
     @GetMapping(value="contactus")
     public ModelAndView contactUs(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("jumbo","Contact Us");
         modelAndView.setViewName("contactus");
         return modelAndView;
     }
@@ -83,6 +85,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("jumbo","About Us");
         modelAndView.setViewName("aboutus");
         return modelAndView;
     }
@@ -92,8 +95,20 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("jumbo","Instructors");
         modelAndView.setViewName("instructors");
         return modelAndView;
+    }
+
+    @GetMapping(value="")
+    public ModelAndView index(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("jumbo","Welcome To Our Studio Manager");
+        modelAndView.setViewName("index");
+        return modelAndView;
+
     }
 }
 

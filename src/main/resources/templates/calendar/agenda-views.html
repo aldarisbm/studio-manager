@@ -95,8 +95,10 @@
   </style>
 </head>
 <body>
-  <nav th:replace="fragments :: navbar"></nav>
+  <nav th:replace="fragments :: loggedInNavbar"></nav>
   <nav th:replace="fragments :: jumbo"></nav>
+  <div th:replace="fragments :: loggedIn"></div>
+
 
   <div id='calendar'></div>
 

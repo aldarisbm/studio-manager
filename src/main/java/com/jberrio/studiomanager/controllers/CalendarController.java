@@ -16,12 +16,14 @@ public class CalendarController {
     public ModelAndView calendar(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("calendar/agenda-views");
+        modelAndView.addObject("jumbo","My Calendar");
         return modelAndView;
     }
 
     @RequestMapping(value="schedule")
     public ModelAndView eventForm(){
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("jumbo","Schedule");
         modelAndView.setViewName("calendar/eventform");
 
 

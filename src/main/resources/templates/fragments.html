@@ -13,10 +13,10 @@ TEST
 
 <!--THIS IT THE NAVBAR-->
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <!--<a class="navbar-brand" href="/">Home</a>-->
+    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--<span class="navbar-toggler-icon"></span>-->
+    <!--</button>-->
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -25,6 +25,34 @@ TEST
             <li class="nav-item">
                 <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
             </li>
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/instructors">Our Instructors</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/aboutus">About Us</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/contactus">Contact Us</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/calendar">Calendar</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/calendar/schedule">Schedule</a>-->
+            <!--</li>-->
+        </ul>
+    </div>
+</nav>
+
+<!--THIS IS THE LOGGED IN NAVBAR-->
+
+<nav th:fragment="loggedInNavbar" class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">My Profile</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="/instructors">Our Instructors</a>
             </li>
@@ -44,10 +72,14 @@ TEST
     </div>
 </nav>
 
+
+
+
+
 <!--THIS IS THE JUMBOTRON-->
 <div th:fragment="jumbo" class="jumbotron align-center">
     <div class="container text-center">
-        <h1>Studio Manager</h1>
+        <h1 th:text="${jumbo}">Studio Manager</h1>
     </div>
 </div>
 
