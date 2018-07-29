@@ -31,7 +31,7 @@
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                     <!--<label for="instructor">Select list:</label>-->
                     <select class="form-control" name="instructor" id="instructor">
-                        <option>Instructor 1</option>
+                        <option th:each="instructor : ${instructors}" th:text="${instructor.name}">Instructor 1</option>
                     </select>
                 </div>
             </div>
@@ -40,14 +40,14 @@
 
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="studio">Studio</label>
+                <label for="room">Studio</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                     <!--<label for="studio">Select list:</label>-->
-                    <select class="form-control" name="studio" id="studio">
+                    <select class="form-control" name="room" id="room">
                         <option>Studio 1</option>
 
                     </select>
