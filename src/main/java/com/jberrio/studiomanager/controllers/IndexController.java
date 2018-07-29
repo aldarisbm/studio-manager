@@ -24,7 +24,7 @@ public class IndexController {
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("jumbo","Log In");
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("index/login");
         return modelAndView;
     }
 
@@ -35,7 +35,7 @@ public class IndexController {
         User user = new User();
         modelAndView.addObject("jumbo","Register");
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("register");
+        modelAndView.setViewName("index/register");
         return modelAndView;
     }
 
@@ -49,11 +49,11 @@ public class IndexController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("register");
+            modelAndView.setViewName("index/register");
         } else {
             userService.saveUser(user);
             modelAndView.addObject("jumbo","Welcome");
-            modelAndView.setViewName("welcome");
+            modelAndView.setViewName("index/welcome");
         }
         return modelAndView;
     }
@@ -76,7 +76,7 @@ public class IndexController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("jumbo","Contact Us");
-        modelAndView.setViewName("contactus");
+        modelAndView.setViewName("index/contactus");
         return modelAndView;
     }
 
@@ -86,7 +86,7 @@ public class IndexController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("jumbo","About Us");
-        modelAndView.setViewName("aboutus");
+        modelAndView.setViewName("index/aboutus");
         return modelAndView;
     }
 
@@ -96,7 +96,7 @@ public class IndexController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("jumbo","Instructors");
-        modelAndView.setViewName("instructors");
+        modelAndView.setViewName("index/instructors");
         return modelAndView;
     }
 
@@ -106,7 +106,7 @@ public class IndexController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("jumbo","Welcome To Our Studio Manager");
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("index/index");
         return modelAndView;
 
     }
