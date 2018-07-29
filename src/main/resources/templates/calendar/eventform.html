@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head">
+</head>
+
+<body>
+
+<!--THIS IT THE NAVBAR-->
+<nav th:replace="fragments :: navbar">
+</nav>
+
+<!--THIS IS THE JUMBOTRON-->
+<div th:replace="fragments :: jumbo">
+</div>
+<div th:replace="fragments :: loggedIn"></div>
+
+
+<form method="post">
+    <label>Start Date
+        <input type="datetime-local" name="startDate">
+    </label>
+    <label>End Date
+        <input type="datetime-local" name="endDate">
+    </label>
+        <input type="submit" value="Add Event"/>
+</form>
+
+
+<!--THESE ARE THE SCRIPTS-->
+<div th:replace="fragments :: script">
+</div>
+
+</body>
+</html>
