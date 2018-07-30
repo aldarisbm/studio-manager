@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head">
+</head>
+
+<body>
+
+<!--THIS IT THE NAVBAR-->
+<nav th:replace="fragments :: loggedInNavbar">
+</nav>
+
+<!--THIS IS THE JUMBOTRON-->
+<div th:replace="fragments :: jumbo">
+</div>
+
+<div th:replace="fragments :: loggedIn"></div>
+
+
+
+<!--THESE ARE THE SCRIPTS-->
+<div th:replace="fragments :: script">
+</div>
+
+</body>
+</html>

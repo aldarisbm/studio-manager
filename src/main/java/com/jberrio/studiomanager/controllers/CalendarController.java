@@ -28,6 +28,8 @@ public class CalendarController {
     @RequestMapping(value="")
     public ModelAndView calendar(){
         ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
         modelAndView.setViewName("calendar/agenda-views");
         modelAndView.addObject("jumbo","My Calendar");
         return modelAndView;
@@ -35,8 +37,8 @@ public class CalendarController {
 
     @RequestMapping(value="schedule")
     public ModelAndView eventForm(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         List<User> instructors = userDao.findAll();
         modelAndView.addObject("instructors",instructors);

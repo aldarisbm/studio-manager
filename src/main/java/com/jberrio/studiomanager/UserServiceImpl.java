@@ -35,4 +35,15 @@ public class UserServiceImpl implements UserService{
         userDao.save(user);
     }
 
+    @Override
+    public boolean isAdmin(User user) {
+        for(Role role : user.getRoles()) {
+            if(role.getId() == 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

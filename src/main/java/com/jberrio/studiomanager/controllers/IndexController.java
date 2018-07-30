@@ -58,7 +58,7 @@ public class IndexController {
         return modelAndView;
     }
 
-//    @RequestMapping(value="welcome", method = RequestMethod.GET)
+//    @RequestMapping(value="admin", method = RequestMethod.GET)
 //    public ModelAndView home(){
 //        ModelAndView modelAndView = new ModelAndView();
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -105,10 +105,16 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("jumbo","Welcome To Our Studio Manager");
-        modelAndView.setViewName("index/index");
-        return modelAndView;
 
+        if(userService.isAdmin(user)){
+            modelAndView.addObject("jumbo","Welcome Admin");
+            modelAndView.setViewName("admin/console");
+            return modelAndView;
+        } else {
+            modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
+            modelAndView.setViewName("index/index");
+            return modelAndView;
+        }
     }
 }
 
