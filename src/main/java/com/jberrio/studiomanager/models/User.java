@@ -19,7 +19,7 @@ public class User {
     private int id;
 
     @NotNull(message= "Please provide your name")
-    @Size(min=6, max=12)
+    @Size(min=6, max=18)
     private String name;
 
     @Column(nullable= false, unique = true)

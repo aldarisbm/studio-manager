@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.ListIterator;
 
 @Controller
 @RequestMapping(value="calendar")
@@ -41,6 +42,17 @@ public class CalendarController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         List<User> instructors = userDao.findAll();
+
+        ListIterator<User> i = instructors.listIterator();
+
+        while(i.hasNext()){
+            User userToRemove = i.next();
+            if(userToRemove.equals(user)){
+                i.remove();
+            }
+        }
+
+
         modelAndView.addObject("instructors",instructors);
         modelAndView.addObject("user",user);
         modelAndView.addObject("jumbo","Schedule");
