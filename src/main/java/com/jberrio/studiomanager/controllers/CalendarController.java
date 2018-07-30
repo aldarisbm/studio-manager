@@ -51,6 +51,8 @@ public class CalendarController {
     @RequestMapping(value="schedule",method=RequestMethod.POST)
     @ResponseBody
     public String datePicker(@RequestParam String startTime,String endTime, String date, String room, String instructor) {
-            return "Lesson with "+instructor+" at "+room+" starting @ "+startTime+ " and ending @ "+endTime;
+
+            return " Lesson with " + instructor + " on " + date +" at "+ room + " starting @ " + startTime + " and ending @ " + endTime;
+
     }
 }
