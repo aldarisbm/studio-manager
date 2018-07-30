@@ -4,12 +4,12 @@ import java.util.Date;
 
 
 public class Event {
+
     private int id;
 
     private User student;
 
     private User instructor;
-
 
     private Room room;
 

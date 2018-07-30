@@ -2,17 +2,18 @@ package com.jberrio.studiomanager.controllers;
 
 
 import com.jberrio.studiomanager.UserService;
-import com.jberrio.studiomanager.models.Event;
 import com.jberrio.studiomanager.models.User;
 import com.jberrio.studiomanager.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -49,9 +50,7 @@ public class CalendarController {
 
     @RequestMapping(value="schedule",method=RequestMethod.POST)
     @ResponseBody
-    public String datePicker(@Valid @ModelAttribute Event event,
-
-            @RequestParam String startTime,String endTime, String date, String room, String instructor) {
+    public String datePicker(@RequestParam String startTime,String endTime, String date, String room, String instructor) {
             return "Lesson with "+instructor+" at "+room+" starting @ "+startTime+ " and ending @ "+endTime;
     }
 }
