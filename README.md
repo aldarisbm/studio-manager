@@ -30,7 +30,7 @@ https://www.pivotaltracker.com/n/projects/2185453
 ### Run it
 Use Java 10
 
-After you clone from github repo, you should build with gradle -Usually have auto-import
+After you clone from github repo, you should build with gradle -Usually have auto-import checked and use gradle 'wrapper' configuration.
 
 After it boots up, in MAMP or whichever MYSQL db you're using to connect you need to add the following two commands(can be added both at once) from the root folder of the DB
 
