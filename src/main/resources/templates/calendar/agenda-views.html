@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-  <link th:href='@{css/fullcalendar.min.css}' rel='stylesheet' />
-  <link th:href='@{css/fullcalendar.print.min.css}' rel='stylesheet' media='print' />
-  <script th:src='@{lib/moment.min.js}'></script>
-  <script th:src='@{lib/jquery.min.js}'></script>
-  <script th:src='@{js/fullcalendar.min.js}'></script>
-  <script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous"></script>
+    <link th:href='@{css/fullcalendar.min.css}' rel='stylesheet'/>
+    <link th:href='@{css/fullcalendar.print.min.css}' rel='stylesheet' media='print'/>
+    <script th:src='@{lib/moment.min.js}'></script>
+    <script th:src='@{lib/jquery.min.js}'></script>
+    <script th:src='@{js/fullcalendar.min.js}'></script>
+    <script>
 
   $(document).ready(function() {
 
@@ -43,8 +46,9 @@
 
   });
 
-  </script>
-  <style>
+
+    </script>
+    <style>
 
 
   #calendar {
@@ -52,15 +56,16 @@
     margin: 0 auto;
   }
 
-  </style>
+
+    </style>
 </head>
 <body>
-  <nav th:replace="fragments :: loggedInNavbar"></nav>
-  <nav th:replace="fragments :: jumbo"></nav>
-  <div th:replace="fragments :: loggedIn"></div>
+<nav th:replace="fragments :: loggedInNavbar"></nav>
+<nav th:replace="fragments :: jumbo"></nav>
+<div th:replace="fragments :: loggedIn"></div>
 
 
-  <div id='calendar'></div>
+<div id='calendar'></div>
 
 <!--<div th:replace="fragments :: script"></div>-->
 

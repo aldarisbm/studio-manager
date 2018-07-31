@@ -1,7 +1,9 @@
 package com.jberrio.studiomanager.controllers;
 
 import com.jberrio.studiomanager.UserService;
+import com.jberrio.studiomanager.models.Event;
 import com.jberrio.studiomanager.models.User;
+import com.jberrio.studiomanager.models.data.EventDao;
 import com.jberrio.studiomanager.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -23,6 +27,9 @@ public class IndexController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private EventDao eventDao;
 
     @RequestMapping(value={"/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
@@ -117,6 +124,15 @@ public class IndexController {
             modelAndView.setViewName("redirect:admin/console");
             return modelAndView;
         } else {
+            List<Event> loggedInEvents = new ArrayList<>();
+
+            for(Event event : eventDao.findAll()){
+                if(event.getUser().getId()==user.getId()){
+                    loggedInEvents.add(event);
+                }
+            }
+
+            modelAndView.addObject("events", loggedInEvents);
             modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
             modelAndView.setViewName("index/index");
             return modelAndView;

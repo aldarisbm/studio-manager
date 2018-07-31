@@ -24,7 +24,7 @@ import java.util.ListIterator;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value="calendar")
+@RequestMapping(value = "calendar")
 public class CalendarController {
 
     @Autowired
@@ -36,18 +36,18 @@ public class CalendarController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value="")
-    public ModelAndView calendar(){
+    @RequestMapping(value = "")
+    public ModelAndView calendar() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.setViewName("calendar/agenda-views");
-        modelAndView.addObject("jumbo","My Calendar");
+        modelAndView.addObject("jumbo", "My Calendar");
         return modelAndView;
     }
 
-    @RequestMapping(value="schedule")
-    public ModelAndView eventForm(){
+    @RequestMapping(value = "schedule")
+    public ModelAndView eventForm() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
@@ -55,17 +55,17 @@ public class CalendarController {
 
         ListIterator<User> i = instructors.listIterator();
 
-        while(i.hasNext()){
+        while (i.hasNext()) {
             User userToRemove = i.next();
-            if(userToRemove.equals(user)){
+            if (userToRemove.equals(user)) {
                 i.remove();
             }
         }
 
 
-        modelAndView.addObject("instructors",instructors);
-        modelAndView.addObject("user",user);
-        modelAndView.addObject("jumbo","Schedule");
+        modelAndView.addObject("instructors", instructors);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("jumbo", "Schedule");
         modelAndView.setViewName("calendar/eventform");
 
 
@@ -73,8 +73,7 @@ public class CalendarController {
     }
 
 
-
-    @RequestMapping(value="schedule",method=RequestMethod.POST)
+    @RequestMapping(value = "schedule", method = RequestMethod.POST)
     @ResponseBody
     public String dateChooser(@Valid @ModelAttribute Event event) {
 
@@ -84,11 +83,11 @@ public class CalendarController {
 
         Optional<User> instructor = userDao.findById(event.getInstructorId());
 
-        event.setTitle("Instructor: "+ instructor.get().getName() + " Student: "
-                +user.getName()+" Room:");
+        event.setTitle("Instructor: " + instructor.get().getName() + " Student: "
+                + user.getName() + " Room:");
 
-        event.setStartTime(event.getDate()+"T"+event.getStartTime()+":00");
-        event.setEndTime(event.getDate()+"T"+event.getEndTime()+":00");
+        event.setStartTime(event.getDate() + "T" + event.getStartTime() + ":00");
+        event.setEndTime(event.getDate() + "T" + event.getEndTime() + ":00");
         event.setUser(user);
         eventDao.save(event);
 
@@ -97,7 +96,7 @@ public class CalendarController {
         return json;
     }
 
-    public String formatEventToJson(Event event){
+    public String formatEventToJson(Event event) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(event);
 

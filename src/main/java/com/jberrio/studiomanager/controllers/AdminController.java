@@ -3,6 +3,7 @@ package com.jberrio.studiomanager.controllers;
 
 import com.jberrio.studiomanager.UserService;
 import com.jberrio.studiomanager.models.User;
+import com.jberrio.studiomanager.models.data.EventDao;
 import com.jberrio.studiomanager.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,17 +17,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value="admin")
+@RequestMapping(value = "admin")
 public class AdminController {
+
+    @Autowired
+    private EventDao eventDao;
 
     @Autowired
     private UserService userService;
     @Autowired
     private UserDao userDao;
 
-//    GIVES A LIST ALL OF ADMINS AND USERS
-    @RequestMapping(value="console", method = RequestMethod.GET)
-    public ModelAndView getConsole(){
+    //    GIVES A LIST ALL OF ADMINS AND USERS
+    @RequestMapping(value = "console", method = RequestMethod.GET)
+    public ModelAndView getConsole() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
@@ -34,18 +38,22 @@ public class AdminController {
         List<User> admins = new LinkedList<>();
         List<User> users = new LinkedList<>();
 
-        for(User aUser : userDao.findAll()){
-            if(userService.isAdmin(aUser)){
+        for (User aUser : userDao.findAll()) {
+            if (userService.isAdmin(aUser)) {
                 admins.add(aUser);
             } else {
                 users.add(aUser);
             }
         }
-        modelAndView.addObject("admins",admins);
+
+
+        modelAndView.addObject("events", eventDao.findAll());
+
+        modelAndView.addObject("admins", admins);
         modelAndView.addObject("users", users);
 
 //        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.addObject("jumbo","Welcome Admin");
+        modelAndView.addObject("jumbo", "Welcome Admin");
         modelAndView.setViewName("admin/console");
 
         return modelAndView;
@@ -63,8 +71,6 @@ public class AdminController {
 //        modelAndView.setViewName("admin/console");
 //        return modelAndView;
 //    }
-
-
 
 
 }

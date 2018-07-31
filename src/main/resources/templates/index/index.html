@@ -16,6 +16,13 @@
 
 <div th:replace="fragments :: loggedIn"></div>
 
+<div class="container">
+    <h2>Scheduled Classes:</h2><br>
+    <ul th:each="event : ${events}">
+        <li th:text="${event.title}"></li>
+    </ul>
+</div>
+
 
 
 <!--THESE ARE THE SCRIPTS-->

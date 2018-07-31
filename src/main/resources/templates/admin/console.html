@@ -19,46 +19,71 @@
 <div class="container">
     <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
 
-    <h1 class="justify-text-center">Users:</h1>
-    <div class="form-check">
-        <div class="row">
-            <div class="col-md-6 field-label-responsive">
-                <h3>Admins</h3>
-                <div th:each="admin : ${admins}">
-                    <input type="checkbox" th:name="${admin.id}" th:value="${admin.id}"/>
-                    <label th:text="${admin.name}" ></label>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Demote</button>
-                    </div>
-                    <div class="col-sm-3"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="form-check">
-        <div class="row">
-            <div class="col-md-6 field-label-responsive">
-                <h3>Users</h3>
-                <div th:each="user : ${users}">
-            <input type="checkbox" th:name="${user.id}" th:value="${user.id}"/>
-            <label th:text="${user.name}" ></label>
-                </div>
+        <h1 class="justify-text-center">Users:</h1>
+        <div class="form-check">
             <div class="row">
-                <div class="col-sm-6">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Promote</button>
+                <div class="col-md-6 field-label-responsive">
+                    <h3>Admins</h3>
+                    <div th:each="admin : ${admins}">
+                        <input type="checkbox" th:name="${admin.id}" th:value="${admin.id}"/>
+                        <label th:text="${admin.name}"></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Demote</button>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
                 </div>
-                <div class="col-sm-3"></div>
-            </div>
             </div>
         </div>
-    </div>
+    </form>
+
+    <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+        <div class="form-check">
+            <div class="row">
+                <div class="col-md-6 field-label-responsive">
+                    <h3>Users</h3>
+                    <div th:each="user : ${users}">
+                        <input type="checkbox" th:name="${user.id}" th:value="${user.id}"/>
+                        <label th:text="${user.name}"></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Promote
+                            </button>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
+<div class="container">
+    <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+        <div class="form-check">
+            <div class="row">
+                <div class="col-md-6 field-label-responsive">
+                    <h2>Scheduled Classes:</h2><br>
+
+                    <div th:each="event : ${events}">
+                        <input type="checkbox" th:name="${event.id}" th:value="${event.id}"/>
+                        <label th:text="${event.title}"></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Delete
+                            </button>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 <!--THESE ARE THE SCRIPTS-->
