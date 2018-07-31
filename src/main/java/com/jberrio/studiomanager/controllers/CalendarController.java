@@ -37,12 +37,13 @@ public class CalendarController {
 
     @RequestMapping(value = "")
     public ModelAndView calendar() {
+        writeToJsonFile();
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.setViewName("calendar/agenda-views");
         modelAndView.addObject("jumbo", "My Calendar");
         writeToJsonFile();
+        modelAndView.setViewName("calendar/agenda-views");
         return modelAndView;
     }
 
@@ -83,8 +84,8 @@ public class CalendarController {
 
         Optional<User> instructor = userDao.findById(event.getInstructorId());
 
-        event.setTitle("Instructor: " + instructor.get().getName() + " Student: "
-                + user.getName() + " Room:");
+        event.setTitle("I: " + instructor.get().getName() + "/ S: "
+                + user.getName() + " R:");
 
         event.setStart(event.getDate() + "T" + event.getStart() + ":00");
         event.setEnd(event.getDate() + "T" + event.getEnd() + ":00");
@@ -116,6 +117,7 @@ public class CalendarController {
             }
             fileWriter.write("]");
             fileWriter.flush();
+            fileWriter.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

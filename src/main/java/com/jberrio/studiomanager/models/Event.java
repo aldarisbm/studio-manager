@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 public class Event {
 
 
-    @Expose
     @Id
     @GeneratedValue
     @Column(name="event_id")
