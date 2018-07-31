@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.io.FileWriter;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -37,12 +36,11 @@ public class CalendarController {
 
     @RequestMapping(value = "")
     public ModelAndView calendar() {
-        writeToJsonFile();
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("jumbo", "My Calendar");
-        writeToJsonFile();
+        modelAndView.addObject("json",writeToJsonString());
         modelAndView.setViewName("calendar/agenda-views");
         return modelAndView;
     }
@@ -98,29 +96,28 @@ public class CalendarController {
 
     }
 
-    public void writeToJsonFile(){
+    public String writeToJsonString(){
+        String json = "";
         try {
 
             ListIterator<Event> iterator = eventDao.findAll().listIterator();
-
-            FileWriter fileWriter = new FileWriter("src/main/resources/static/json/events.json");
-            fileWriter.write("[");
+            json += "[";
 
             while(iterator.hasNext()) {
                 Event iEvent = iterator.next();
                 if(!iterator.hasNext()){
-                    fileWriter.write(iEvent.formatEventToJson(iEvent));
+                    json += iEvent.formatEventToJson(iEvent);
                 }
                 else {
-                    fileWriter.write(iEvent.formatEventToJson(iEvent) + ",");
+                    json += iEvent.formatEventToJson(iEvent) + ",";
                 }
             }
-            fileWriter.write("]");
-            fileWriter.flush();
-            fileWriter.close();
+            json += "]";
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return json;
     }
 
 

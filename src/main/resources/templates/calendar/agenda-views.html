@@ -12,7 +12,7 @@
     <script th:src='@{lib/moment.min.js}'></script>
     <script th:src='@{lib/jquery.min.js}'></script>
     <script th:src='@{js/fullcalendar.min.js}'></script>
-    <script>
+    <script th:inline="javascript">
 
   $(document).ready(function() {
 
@@ -26,7 +26,9 @@
       navLinks: true, // can click day/week names to navigate views
       editable: false,
       eventLimit: true, // allow "more" link when too many events
-      events: '/json/events.json'
+      events: /*[(${json})]*/
+
+      <!--'/json/events.json'-->
       <!--[-->
         <!--{-->
           <!--title: 'Dinner',-->
@@ -42,6 +44,9 @@
           <!--start: '2018-03-28'-->
         <!--}-->
       <!--]-->
+
+
+
     });
 
   });
