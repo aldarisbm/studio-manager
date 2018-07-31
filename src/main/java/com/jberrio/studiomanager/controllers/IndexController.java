@@ -2,6 +2,7 @@ package com.jberrio.studiomanager.controllers;
 
 import com.jberrio.studiomanager.UserService;
 import com.jberrio.studiomanager.models.User;
+import com.jberrio.studiomanager.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,9 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDao userDao;
 
     @RequestMapping(value={"/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
@@ -107,8 +111,10 @@ public class IndexController {
         User user = userService.findUserByEmail(auth.getName());
 
         if(userService.isAdmin(user)){
-            modelAndView.addObject("jumbo","Welcome Admin");
-            modelAndView.setViewName("admin/console");
+//            modelAndView.addObject("jumbo","Welcome Admin");
+//            List<User> users = userDao.findAll();
+//            modelAndView.addObject("users", users);
+            modelAndView.setViewName("redirect:admin/console");
             return modelAndView;
         } else {
             modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
