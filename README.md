@@ -27,7 +27,7 @@ thymeleaf
 Pivotal Tracker
 https://www.pivotaltracker.com/n/projects/2185453
 
-### Run it
+### Run it:
 Use Java 10
 
 After you clone from github repo, you should build with gradle -Usually have auto-import checked and use gradle 'wrapper' configuration.
