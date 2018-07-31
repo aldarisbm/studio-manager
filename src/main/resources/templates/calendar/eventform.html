@@ -31,7 +31,7 @@
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                     <!--<label for="instructor">Select list:</label>-->
                     <select class="form-control" name="instructor" id="instructor">
-                        <option th:each="instructor : ${instructors}" th:text="${instructor.name}">Instructor 1</option>
+                        <option th:each="instructor : ${instructors}" th:text="${instructor.name}" th:value="${instructor.id}">Instructor 1</option>
                     </select>
                 </div>
             </div>

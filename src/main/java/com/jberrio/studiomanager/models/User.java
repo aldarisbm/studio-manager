@@ -41,7 +41,7 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany
-    @JoinColumn(name="event_id")
+    @JoinColumn(name="user_id")
     private List<Event> events = new ArrayList<>();
 
     public User() {
