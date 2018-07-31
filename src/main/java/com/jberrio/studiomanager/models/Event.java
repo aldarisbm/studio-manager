@@ -1,6 +1,8 @@
 package com.jberrio.studiomanager.models;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
@@ -30,11 +32,11 @@ public class Event {
 
     @NotNull
     @Expose
-    private String startTime;
+    private String start;
 
     @Expose
     @NotNull
-    private String endTime;
+    private String end;
 
     @ManyToOne
     @JoinColumn(name="user_id")
@@ -83,20 +85,20 @@ public class Event {
         this.title = title;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getStart() {
+        return start;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setStart(String start) {
+        this.start = start;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public String getEnd() {
+        return end;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setEnd(String end) {
+        this.end = end;
     }
 
     public User getUser() {
@@ -106,4 +108,12 @@ public class Event {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String formatEventToJson(Event event) {
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(event);
+
+        return json;
+    }
+
 }

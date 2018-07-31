@@ -1,8 +1,6 @@
 package com.jberrio.studiomanager.controllers;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.jberrio.studiomanager.UserService;
 import com.jberrio.studiomanager.models.Event;
 import com.jberrio.studiomanager.models.User;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.FileWriter;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -43,6 +42,7 @@ public class CalendarController {
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.setViewName("calendar/agenda-views");
         modelAndView.addObject("jumbo", "My Calendar");
+        writeToJsonFile();
         return modelAndView;
     }
 
@@ -86,22 +86,42 @@ public class CalendarController {
         event.setTitle("Instructor: " + instructor.get().getName() + " Student: "
                 + user.getName() + " Room:");
 
-        event.setStartTime(event.getDate() + "T" + event.getStartTime() + ":00");
-        event.setEndTime(event.getDate() + "T" + event.getEndTime() + ":00");
+        event.setStart(event.getDate() + "T" + event.getStart() + ":00");
+        event.setEnd(event.getDate() + "T" + event.getEnd() + ":00");
         event.setUser(user);
         eventDao.save(event);
 
-        String json = formatEventToJson(event);
+        String json = event.formatEventToJson(event);
 
         return json;
+
     }
 
-    public String formatEventToJson(Event event) {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = gson.toJson(event);
+    public void writeToJsonFile(){
+        try {
 
-        return json;
+            ListIterator<Event> iterator = eventDao.findAll().listIterator();
+
+            FileWriter fileWriter = new FileWriter("src/main/resources/static/json/events.json");
+            fileWriter.write("[");
+
+            while(iterator.hasNext()) {
+                Event iEvent = iterator.next();
+                if(!iterator.hasNext()){
+                    fileWriter.write(iEvent.formatEventToJson(iEvent));
+                }
+                else {
+                    fileWriter.write(iEvent.formatEventToJson(iEvent) + ",");
+                }
+            }
+            fileWriter.write("]");
+            fileWriter.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
 
 //    Optional<User> instructor = userDao.findById(event.getInstructorId());
 //    Optional<User> student = userDao.findById(event.getStudentId());
