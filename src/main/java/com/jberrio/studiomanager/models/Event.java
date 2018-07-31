@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name="event")
 public class Event {
 
 
@@ -18,8 +19,6 @@ public class Event {
     private int id;
 
     private int instructorId;
-
-    private int studentId;
 
     private String date;
 
@@ -58,14 +57,6 @@ public class Event {
 
     public void setInstructorId(int instructorId) {
         this.instructorId = instructorId;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
     }
 
     public String getDate() {

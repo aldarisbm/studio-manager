@@ -23,14 +23,14 @@
 
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="instructor">Instructor</label>
+                <label for="instructorId">Instructor</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                     <!--<label for="instructor">Select list:</label>-->
-                    <select class="form-control" name="instructor" id="instructor">
+                    <select class="form-control" name="instructorId" id="instructorId">
                         <option th:each="instructor : ${instructors}" th:text="${instructor.name}" th:value="${instructor.id}">Instructor 1</option>
                     </select>
                 </div>
