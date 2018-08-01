@@ -17,72 +17,112 @@
 <div th:replace="fragments :: loggedIn"></div>
 
 <div class="container">
-    <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
-
+    <div class="row">
         <h1 class="justify-text-center">Users:</h1>
-        <div class="form-check">
-            <div class="row">
-                <div class="col-md-6 field-label-responsive">
-                    <h3>Admins</h3>
-                    <div th:each="admin : ${admins}">
-                        <input type="checkbox" th:name="${admin.id}" th:value="${admin.id}"/>
-                        <label th:text="${admin.name}"></label>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Demote</button>
-                        </div>
-                        <div class="col-sm-3"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    </div>
 
-    <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
-        <div class="form-check">
-            <div class="row">
-                <div class="col-md-6 field-label-responsive">
-                    <h3>Users</h3>
-                    <div th:each="user : ${users}">
-                        <input type="checkbox" th:name="${user.id}" th:value="${user.id}"/>
-                        <label th:text="${user.name}"></label>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Promote
-                            </button>
-                        </div>
-                        <div class="col-sm-3"></div>
-                    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+                <div class="form-group">
+                    <label>Admins</label>
+                    <select class="form-control">
+                        <option th:each="admin : ${admins}" th:text="${admin.name}"
+                                th:value="${admin.id}">
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-warning mb-2">demote</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
-</div>
-
-<div class="container">
-    <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
-        <div class="form-check">
-            <div class="row">
-                <div class="col-md-6 field-label-responsive">
-                    <h2>Scheduled Classes:</h2><br>
-
-                    <div th:each="event : ${events}">
-                        <input type="checkbox" th:name="${event.id}" th:value="${event.id}"/>
-                        <label th:text="${event.title}"></label>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i>Delete
-                            </button>
-                        </div>
-                        <div class="col-sm-3"></div>
-                    </div>
+        <div class="col-md-6">
+            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+                <div class="form-group">
+                    <label>Users</label>
+                    <select class="form-control">
+                        <option th:each="user : ${users}" th:text="${user.name}"
+                                th:value="${user.id}">
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-primary mb-2">promote</button>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
+
+    <div class="row">
+        <h1 class="justify-text-center">Classes:</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+                <div class="form-group">
+                    <label>Past Classes</label>
+                    <select class="form-control">
+                        <option th:each="event : ${pastEvents}" th:text="${event.title}"
+                                th:value="${event.id}">
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-danger mb-2">delete</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+                <div class="form-group">
+                    <label>Scheduled Classes</label>
+                    <select class="form-control">
+                        <option th:each="event : ${futureEvents}" th:text="${event.title}"
+                                th:value="${event.id}">
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-danger mb-2">delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <h1 class="justify-text-center">All Users:</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+                <div class="form-group">
+                    <label>Instructors</label>
+                    <select class="form-control">
+                        <option th:each="instructor : ${instructors}" th:text="${instructor.name}"
+                                th:value="${instructor.id}">
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-danger mb-2">Make Student</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+                <div class="form-group">
+                    <label>Students</label>
+                    <select class="form-control">
+                        <option th:each="student : ${students}" th:text="${student.name}"
+                                th:value="${student.id}">
+                        </option>
+                    </select>
+                    <button type="submit" class="btn btn-danger mb-2">Make Instructor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 </div>
 
 

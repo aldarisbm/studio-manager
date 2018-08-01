@@ -40,6 +40,9 @@ public class User {
     @Column(name = "active")
     private int active;
 
+    @Column(name ="is_instructor")
+    private int isInstructor;
+
     @ManyToMany
     @JoinTable(name="user_role",joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles;
@@ -47,6 +50,8 @@ public class User {
     @OneToMany
     @JoinColumn(name="event_id")
     private List<Event> events = new ArrayList<>();
+
+
 
     public User() {
     }
@@ -97,6 +102,14 @@ public class User {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public int getIsInstructor() {
+        return isInstructor;
+    }
+
+    public void setIsInstructor(int isInstructor) {
+        this.isInstructor = isInstructor;
     }
 
     public Set<Role> getRoles() {

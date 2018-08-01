@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class IndexController {
@@ -112,7 +118,7 @@ public class IndexController {
     }
 
     @GetMapping(value="")
-    public ModelAndView index(){
+    public ModelAndView index() throws ParseException {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
@@ -124,15 +130,29 @@ public class IndexController {
             modelAndView.setViewName("redirect:admin/console");
             return modelAndView;
         } else {
-            List<Event> loggedInEvents = new ArrayList<>();
+            List<Event> pastLoggedInEvents = new ArrayList<>();
+            List<Event> futureLoggedInEvents = new ArrayList<>();
 
             for(Event event : eventDao.findAll()){
                 if(event.getUser().getId()==user.getId()){
-                    loggedInEvents.add(event);
+                    //formats todays date to the same format as the event date to be able to compare
+
+                    Date eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(event.getDate());
+                    LocalDateTime ldt = LocalDateTime.now();
+                    DateTimeFormatter formmat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+                    String formatter = formmat1.format(ldt);
+                    Date todaysDate = new SimpleDateFormat("yyyy-MM-dd").parse(formatter);
+
+                    if(eventDate.compareTo(todaysDate) < 0){
+                        pastLoggedInEvents.add(event);
+                    } else {
+                        futureLoggedInEvents.add(event);
+                    }
                 }
             }
 
-            modelAndView.addObject("events", loggedInEvents);
+            modelAndView.addObject("pastEvents", pastLoggedInEvents);
+            modelAndView.addObject("futureEvents", futureLoggedInEvents);
             modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
             modelAndView.setViewName("index/index");
             return modelAndView;

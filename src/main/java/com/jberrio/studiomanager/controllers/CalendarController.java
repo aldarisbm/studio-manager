@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -49,7 +50,13 @@ public class CalendarController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        List<User> instructors = userDao.findAll();
+        List<User> instructors = new ArrayList<>();
+
+        for(User instructor : userDao.findAll()) {
+            if(instructor.getIsInstructor()==1){
+                instructors.add(instructor);
+            }
+        }
 
         ListIterator<User> i = instructors.listIterator();
 
@@ -59,7 +66,6 @@ public class CalendarController {
                 i.remove();
             }
         }
-
 
         modelAndView.addObject("instructors", instructors);
         modelAndView.addObject("user", user);
