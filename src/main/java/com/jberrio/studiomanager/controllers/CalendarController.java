@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -73,8 +72,7 @@ public class CalendarController {
 
 
     @RequestMapping(value = "schedule", method = RequestMethod.POST)
-    @ResponseBody
-    public String dateChooser(@Valid @ModelAttribute Event event) {
+    public ModelAndView dateChooser(@Valid @ModelAttribute Event event) {
 
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -82,17 +80,18 @@ public class CalendarController {
 
         Optional<User> instructor = userDao.findById(event.getInstructorId());
 
-        event.setTitle("I: " + instructor.get().getName() + "/ S: "
-                + user.getName() + " R:");
+        String successString = "You have successfully added a new event :" +
+                 instructor.get().getName() + " on " + event.getDate() +
+                " starting at " + event.getStart() + " and ending at " + event.getEnd();
 
-        event.setStart(event.getDate() + "T" + event.getStart() + ":00");
-        event.setEnd(event.getDate() + "T" + event.getEnd() + ":00");
+
+
+        modelAndView.addObject("successString",successString);
+        modelAndView.setViewName("calendar/success");
         event.setUser(user);
         eventDao.save(event);
 
-        String json = event.formatEventToJson(event);
-
-        return json;
+        return modelAndView;
 
     }
 
@@ -119,16 +118,4 @@ public class CalendarController {
         }
         return json;
     }
-
-
-
-//    Optional<User> instructor = userDao.findById(event.getInstructorId());
-//    Optional<User> student = userDao.findById(event.getStudentId());
-//
-//    String theTitle = "Instructor: "+ instructor.get().getName() + " Student: "
-//            +student.get().getName()+" Room:";
-//    String theStart = event.getDate()+"T"+event.getStartTime()+":00";
-//    String theEnd = event.getDate()+"T"+event.getEndTime()+":00";
-
-
 }
