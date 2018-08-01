@@ -41,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3 field-label-responsive">
                 <label for="email">Email Address(Your Username)</label>
@@ -83,6 +84,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3 field-label-responsive">
                 <label for="password">Confirm Password</label>
@@ -96,6 +98,28 @@
                         <input type="password" name="verify" class="form-control"
                                id="verify" placeholder="Password" required>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="color">Pick a color</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <input type="color" name="color" id="color" required autofocus><!--class="form-control"-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                            <span class="text-danger align-middle" th:errors="*{color}"></span>
+                            <!-- Put e-mail validation error messages here -->
+                        </span>
                 </div>
             </div>
         </div>

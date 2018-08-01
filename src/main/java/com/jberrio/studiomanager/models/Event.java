@@ -41,6 +41,9 @@ public class Event {
     @JoinColumn(name="user_id")
     private User user;
 
+    @Expose
+    private String color;
+
     public Event() {
     }
 
@@ -106,6 +109,14 @@ public class Event {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String formatEventToJson(Event event) {

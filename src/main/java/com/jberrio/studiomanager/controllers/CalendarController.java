@@ -85,7 +85,7 @@ public class CalendarController {
                 ", " + event.getStart() + " to " + event.getEnd();
 
         event.setTitle("I: " + instructor.get().getName() + " | S: "
-                + user.getName() + " R: " + event.getRoom());
+                + user.getName() + " | R: " + event.getRoom());
 
         event.setStart(event.getDate() + "T" + event.getStart() + ":00");
         event.setEnd(event.getDate() + "T" + event.getEnd() + ":00");
@@ -93,6 +93,7 @@ public class CalendarController {
         modelAndView.addObject("successInstructor",successInstructor);
         modelAndView.addObject("successDate",sucessDate);
         modelAndView.setViewName("calendar/success");
+        event.setColor(user.getColor());
         event.setUser(user);
         eventDao.save(event);
 

@@ -33,6 +33,10 @@ public class User {
     @Length(min=6, message = "Your password must have at least 6 characters")
     private String password;
 
+    @NotNull
+    @Column(name="color")
+    private String color;
+
     @Column(name = "active")
     private int active;
 
@@ -69,6 +73,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getPassword() {
