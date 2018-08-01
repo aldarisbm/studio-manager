@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <label>Past Classes</label>
                     <select class="form-control">
-                        <option th:each="event : ${pastEvents}" th:text="${event.title}"
+                        <option th:each="event : ${pastEvents}" th:text="${event.date + ' ' +event.title}"
                                 th:value="${event.id}">
                         </option>
                     </select>
@@ -73,7 +73,7 @@
                 <div class="form-group">
                     <label>Scheduled Classes</label>
                     <select class="form-control">
-                        <option th:each="event : ${futureEvents}" th:text="${event.title}"
+                        <option th:each="event : ${futureEvents}" th:text="${event.date + ' ' + event.title}"
                                 th:value="${event.id}">
                         </option>
                     </select>
