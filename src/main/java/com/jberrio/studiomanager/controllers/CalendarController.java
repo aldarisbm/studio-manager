@@ -84,7 +84,11 @@ public class CalendarController {
                  instructor.get().getName() + " on " + event.getDate() +
                 " starting at " + event.getStart() + " and ending at " + event.getEnd();
 
+        event.setTitle("I: " + instructor.get().getName() + " | S: "
+                + user.getName() + " R: " + event.getRoom());
 
+        event.setStart(event.getDate() + "T" + event.getStart() + ":00");
+        event.setEnd(event.getDate() + "T" + event.getEnd() + ":00");
 
         modelAndView.addObject("successString",successString);
         modelAndView.setViewName("calendar/success");
