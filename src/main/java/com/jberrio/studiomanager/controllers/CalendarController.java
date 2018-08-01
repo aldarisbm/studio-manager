@@ -80,9 +80,9 @@ public class CalendarController {
 
         Optional<User> instructor = userDao.findById(event.getInstructorId());
 
-        String successString = "You have successfully added a new event :" +
-                 instructor.get().getName() + " on " + event.getDate() +
-                " starting at " + event.getStart() + " and ending at " + event.getEnd();
+        String successInstructor = "Instructor: " + instructor.get().getName();
+        String sucessDate = "Date: " + event.getDate() +
+                ", " + event.getStart() + " to " + event.getEnd();
 
         event.setTitle("I: " + instructor.get().getName() + " | S: "
                 + user.getName() + " R: " + event.getRoom());
@@ -90,7 +90,8 @@ public class CalendarController {
         event.setStart(event.getDate() + "T" + event.getStart() + ":00");
         event.setEnd(event.getDate() + "T" + event.getEnd() + ":00");
 
-        modelAndView.addObject("successString",successString);
+        modelAndView.addObject("successInstructor",successInstructor);
+        modelAndView.addObject("successDate",sucessDate);
         modelAndView.setViewName("calendar/success");
         event.setUser(user);
         eventDao.save(event);
