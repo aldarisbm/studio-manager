@@ -23,10 +23,10 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+            <form th:action="@{/admin/demote}" class="form-horizontal" role="form" method="POST">
                 <div class="form-group">
                     <label>Admins</label>
-                    <select class="form-control">
+                    <select class="form-control" name="id">
                         <option th:each="admin : ${admins}" th:text="${admin.name}"
                                 th:value="${admin.id}">
                         </option>
@@ -36,10 +36,10 @@
             </form>
         </div>
         <div class="col-md-6">
-            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+            <form th:action="@{/admin/promote}" class="form-horizontal" role="form" method="POST">
                 <div class="form-group">
                     <label>Users</label>
-                    <select class="form-control">
+                    <select class="form-control" name="id">
                         <option th:each="user : ${users}" th:text="${user.name}"
                                 th:value="${user.id}">
                         </option>
@@ -56,10 +56,10 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+            <form th:action="@{/admin/deletepast}" class="form-horizontal" role="form" method="POST">
                 <div class="form-group">
                     <label>Past Classes</label>
-                    <select class="form-control">
+                    <select class="form-control" name="id">
                         <option th:each="event : ${pastEvents}" th:text="${event.date + ' ' +event.title}"
                                 th:value="${event.id}">
                         </option>
@@ -69,10 +69,10 @@
             </form>
         </div>
         <div class="col-md-6">
-            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+            <form th:action="@{/admin/deletefuture}" class="form-horizontal" role="form" method="POST">
                 <div class="form-group">
-                    <label>Scheduled Classes</label>
-                    <select class="form-control">
+                    <label>Future Classes</label>
+                    <select class="form-control" name="id">
                         <option th:each="event : ${futureEvents}" th:text="${event.date + ' ' + event.title}"
                                 th:value="${event.id}">
                         </option>
@@ -89,28 +89,28 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+            <form th:action="@{/admin/makestudent}" class="form-horizontal" role="form" method="POST">
                 <div class="form-group">
                     <label>Instructors</label>
-                    <select class="form-control">
+                    <select class="form-control" name="id">
                         <option th:each="instructor : ${instructors}" th:text="${instructor.name}"
                                 th:value="${instructor.id}">
                         </option>
                     </select>
-                    <button type="submit" class="btn btn-danger mb-2">Make Student</button>
+                    <button type="submit" class="btn btn-info mb-2">Make Student</button>
                 </div>
             </form>
         </div>
         <div class="col-md-6">
-            <form th:action="@{/admin/console}" class="form-horizontal" role="form" method="POST">
+            <form th:action="@{/admin/makeinstructor}" class="form-horizontal" role="form" method="POST">
                 <div class="form-group">
                     <label>Students</label>
-                    <select class="form-control">
+                    <select class="form-control" name="id">
                         <option th:each="student : ${students}" th:text="${student.name}"
                                 th:value="${student.id}">
                         </option>
                     </select>
-                    <button type="submit" class="btn btn-danger mb-2">Make Instructor</button>
+                    <button type="submit" class="btn btn-info mb-2">Make Instructor</button>
                 </div>
             </form>
         </div>
