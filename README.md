@@ -24,15 +24,15 @@ MySQL
 thymeleaf
 
 ### Project Tracker:
-Pivotal Tracker
 
-[LINK](https://www.pivotaltracker.com/n/projects/2185453)
+[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2185453)
 
 ### Deployed Project:
 
 [Heroku App](https://salty-crag-96322.herokuapp.com/)
 
-##### *Disclaimer: project redeploys from github so it might not work at any given time, also database is a little funky
+##### *Disclaimer: This project deploys automatically from github so it might not work at any given time, also the free database is a little funky
+##### Give it some time to load
 
 
 ### Run it:
