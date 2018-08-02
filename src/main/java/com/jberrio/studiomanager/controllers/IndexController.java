@@ -38,20 +38,20 @@ public class IndexController {
     @Autowired
     private EventDao eventDao;
 
-    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
-    public ModelAndView login(){
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("jumbo","Log In");
+        modelAndView.addObject("jumbo", "Log In");
         modelAndView.setViewName("index/login");
         return modelAndView;
     }
 
 
-    @RequestMapping(value="/register", method = RequestMethod.GET)
-    public ModelAndView registration(){
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
-        modelAndView.addObject("jumbo","Register");
+        modelAndView.addObject("jumbo", "Register");
         modelAndView.addObject("user", user);
         modelAndView.setViewName("index/register");
         return modelAndView;
@@ -70,7 +70,7 @@ public class IndexController {
             modelAndView.setViewName("index/register");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("jumbo","Welcome");
+            modelAndView.addObject("jumbo", "Welcome");
             modelAndView.setViewName("index/welcome");
         }
         return modelAndView;
@@ -88,43 +88,43 @@ public class IndexController {
 //        return modelAndView;
 //    }
 
-    @GetMapping(value="contactus")
-    public ModelAndView contactUs(){
+    @GetMapping(value = "contactus")
+    public ModelAndView contactUs() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("jumbo","Contact Us");
+        modelAndView.addObject("jumbo", "Contact Us");
         modelAndView.setViewName("index/contactus");
         return modelAndView;
     }
 
-    @GetMapping(value="aboutus")
-    public ModelAndView aboutUs(){
+    @GetMapping(value = "aboutus")
+    public ModelAndView aboutUs() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("jumbo","About Us");
+        modelAndView.addObject("jumbo", "About Us");
         modelAndView.setViewName("index/aboutus");
         return modelAndView;
     }
 
-    @GetMapping(value="instructors")
-    public ModelAndView ourInstructors(){
+    @GetMapping(value = "instructors")
+    public ModelAndView ourInstructors() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("jumbo","Instructors");
+        modelAndView.addObject("jumbo", "Instructors");
         modelAndView.setViewName("index/instructors");
         return modelAndView;
     }
 
-    @GetMapping(value="")
+    @GetMapping(value = "")
     public ModelAndView index() throws ParseException {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
-        if(userService.isAdmin(user)){
+        if (userService.isAdmin(user)) {
 //            modelAndView.addObject("jumbo","Welcome Admin");
 //            List<User> users = userDao.findAll();
 //            modelAndView.addObject("users", users);
@@ -134,8 +134,8 @@ public class IndexController {
             List<Event> pastLoggedInEvents = new ArrayList<>();
             List<Event> futureLoggedInEvents = new ArrayList<>();
 
-            for(Event event : eventDao.findAll()){
-                if(event.getUser().getId()==user.getId()){
+            for (Event event : eventDao.findAll()) {
+                if (event.getUser().getId() == user.getId()) {
                     //formats todays date to the same format as the event date to be able to compare
 
                     Date eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(event.getDate());
@@ -144,7 +144,7 @@ public class IndexController {
                     String formatter = formmat1.format(ldt);
                     Date todaysDate = new SimpleDateFormat("yyyy-MM-dd").parse(formatter);
 
-                    if(eventDate.compareTo(todaysDate) < 0){
+                    if (eventDate.compareTo(todaysDate) < 0) {
                         pastLoggedInEvents.add(event);
                     } else {
                         futureLoggedInEvents.add(event);
@@ -160,24 +160,24 @@ public class IndexController {
         }
     }
 
-    @GetMapping(value="setbiography")
-    public ModelAndView setBio(){
+    @GetMapping(value = "setbiography")
+    public ModelAndView setBio() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
-        if(user.getIsInstructor() == 1) {
+        if (user.getIsInstructor() == 1) {
             modelAndView.addObject("user", user);
             modelAndView.setViewName("index/setbio");
             return modelAndView;
-        } else{
+        } else {
             modelAndView.setViewName("redirect:");
             return modelAndView;
         }
     }
 
-    @RequestMapping(value="setbiography", method=RequestMethod.POST)
-    public ModelAndView postBio(@RequestParam String bio){
+    @RequestMapping(value = "setbiography", method = RequestMethod.POST)
+    public ModelAndView postBio(@RequestParam String bio) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());

@@ -10,13 +10,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="event")
+@Table(name = "event")
 public class Event {
 
 
     @Id
     @GeneratedValue
-    @Column(name="event_id")
+    @Column(name = "event_id")
     private int id;
 
     private int instructorId;
@@ -26,7 +26,7 @@ public class Event {
     private String room;
 
     @Expose
-    @Size(min=0)
+    @Size(min = 0)
     private String title;
 
     @NotNull
@@ -38,7 +38,7 @@ public class Event {
     private String end;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Expose

@@ -37,7 +37,7 @@ public class AdminController {
 
     //    GIVES A LIST ALL OF ADMINS AND USERS
     @RequestMapping(value = "console", method = RequestMethod.GET)
-    public ModelAndView getConsole()  throws Exception{
+    public ModelAndView getConsole() throws Exception {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
@@ -48,47 +48,47 @@ public class AdminController {
 
 //    PROCESSES NEW DEMOTIONS OR PROMOTIONS TO USERS
 
-    @RequestMapping(value="demote", method=RequestMethod.POST)
-    public ModelAndView demote(@RequestParam int id) throws ParseException{
+    @RequestMapping(value = "demote", method = RequestMethod.POST)
+    public ModelAndView demote(@RequestParam int id) throws ParseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
         Optional<User> demotedUser = userDao.findById(id);
 
-        for(Role role : demotedUser.get().getRoles()){
+        for (Role role : demotedUser.get().getRoles()) {
             demotedUser.get().getRoles().remove(role);
         }
 
         Set<Role> demoted = new HashSet<>();
-        demoted.add(new Role(2,"USER"));
+        demoted.add(new Role(2, "USER"));
 
         demotedUser.get().setRoles(demoted);
         userDao.save(demotedUser.get());
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value="promote", method=RequestMethod.POST)
-    public ModelAndView promote(@RequestParam int id) throws ParseException{
+    @RequestMapping(value = "promote", method = RequestMethod.POST)
+    public ModelAndView promote(@RequestParam int id) throws ParseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
 
         Optional<User> promotedUser = userDao.findById(id);
 
-        for(Role role : promotedUser.get().getRoles()){
+        for (Role role : promotedUser.get().getRoles()) {
             promotedUser.get().getRoles().remove(role);
         }
 
         Set<Role> promoted = new HashSet<>();
-        promoted.add(new Role(1,"ADMIN"));
+        promoted.add(new Role(1, "ADMIN"));
 
         promotedUser.get().setRoles(promoted);
         userDao.save(promotedUser.get());
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value="deletepast", method=RequestMethod.POST)
-    public ModelAndView deletePast(@RequestParam int id){
+    @RequestMapping(value = "deletepast", method = RequestMethod.POST)
+    public ModelAndView deletePast(@RequestParam int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
@@ -100,9 +100,8 @@ public class AdminController {
     }
 
 
-
-    @RequestMapping(value="deletefuture", method=RequestMethod.POST)
-    public ModelAndView deleteFuture(@RequestParam int id){
+    @RequestMapping(value = "deletefuture", method = RequestMethod.POST)
+    public ModelAndView deleteFuture(@RequestParam int id) {
 
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -115,8 +114,8 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value="makestudent", method=RequestMethod.POST)
-    public ModelAndView makeStudent(@RequestParam int id) throws ParseException{
+    @RequestMapping(value = "makestudent", method = RequestMethod.POST)
+    public ModelAndView makeStudent(@RequestParam int id) throws ParseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
@@ -129,8 +128,8 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value="makeinstructor", method=RequestMethod.POST)
-    public ModelAndView makeInstructor(@RequestParam int id) throws ParseException{
+    @RequestMapping(value = "makeinstructor", method = RequestMethod.POST)
+    public ModelAndView makeInstructor(@RequestParam int id) throws ParseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
@@ -143,8 +142,8 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @GetMapping(value="index")
-    public ModelAndView index() throws ParseException{
+    @GetMapping(value = "index")
+    public ModelAndView index() throws ParseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
@@ -153,8 +152,8 @@ public class AdminController {
         List<Event> futureLoggedInEvents = new ArrayList<>();
         ModelAndView modelAndView = new ModelAndView();
 
-        for(Event event : eventDao.findAll()){
-            if(event.getUser().getId()==user.getId()){
+        for (Event event : eventDao.findAll()) {
+            if (event.getUser().getId() == user.getId()) {
                 //formats todays date to the same format as the event date to be able to compare
 
                 Date eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(event.getDate());
@@ -163,7 +162,7 @@ public class AdminController {
                 String formatter = formmat1.format(ldt);
                 Date todaysDate = new SimpleDateFormat("yyyy-MM-dd").parse(formatter);
 
-                if(eventDate.compareTo(todaysDate) < 0){
+                if (eventDate.compareTo(todaysDate) < 0) {
                     pastLoggedInEvents.add(event);
                 } else {
                     futureLoggedInEvents.add(event);
@@ -200,7 +199,7 @@ public class AdminController {
         List<Event> pastEvents = new ArrayList<>();
         List<Event> futureEvents = new ArrayList<>();
 
-        for(Event event : eventDao.findAll()){
+        for (Event event : eventDao.findAll()) {
             //formats todays date to the same format as the event date to be able to compare
             Date eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(event.getDate());
             LocalDateTime ldt = LocalDateTime.now();
@@ -208,7 +207,7 @@ public class AdminController {
             String formatter = formmat1.format(ldt);
             Date todaysDate = new SimpleDateFormat("yyyy-MM-dd").parse(formatter);
 
-            if(eventDate.compareTo(todaysDate) < 0){
+            if (eventDate.compareTo(todaysDate) < 0) {
                 pastEvents.add(event);
             } else {
                 futureEvents.add(event);
@@ -227,8 +226,8 @@ public class AdminController {
             }
         }
 
-        modelAndView.addObject("instructors",instructors);
-        modelAndView.addObject("students",students);
+        modelAndView.addObject("instructors", instructors);
+        modelAndView.addObject("students", students);
 
         modelAndView.addObject("pastEvents", pastEvents);
         modelAndView.addObject("futureEvents", futureEvents);

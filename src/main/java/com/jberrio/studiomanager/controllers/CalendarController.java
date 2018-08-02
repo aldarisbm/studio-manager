@@ -40,7 +40,7 @@ public class CalendarController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("jumbo", "My Calendar");
-        modelAndView.addObject("json",writeToJsonString());
+        modelAndView.addObject("json", writeToJsonString());
         modelAndView.setViewName("calendar/agenda-views");
         return modelAndView;
     }
@@ -52,8 +52,8 @@ public class CalendarController {
         User user = userService.findUserByEmail(auth.getName());
         List<User> instructors = new ArrayList<>();
 
-        for(User instructor : userDao.findAll()) {
-            if(instructor.getIsInstructor()==1){
+        for (User instructor : userDao.findAll()) {
+            if (instructor.getIsInstructor() == 1) {
                 instructors.add(instructor);
             }
         }
@@ -96,8 +96,8 @@ public class CalendarController {
         event.setStart(event.getDate() + "T" + event.getStart() + ":00");
         event.setEnd(event.getDate() + "T" + event.getEnd() + ":00");
 
-        modelAndView.addObject("successInstructor",successInstructor);
-        modelAndView.addObject("successDate",sucessDate);
+        modelAndView.addObject("successInstructor", successInstructor);
+        modelAndView.addObject("successDate", sucessDate);
         modelAndView.setViewName("calendar/success");
         event.setColor(user.getColor());
         event.setUser(user);
@@ -108,19 +108,18 @@ public class CalendarController {
     }
 
 
-    public String writeToJsonString(){
+    public String writeToJsonString() {
         String json = "";
         try {
 
             ListIterator<Event> iterator = eventDao.findAll().listIterator();
             json += "[";
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 Event iEvent = iterator.next();
-                if(!iterator.hasNext()){
+                if (!iterator.hasNext()) {
                     json += iEvent.formatEventToJson(iEvent);
-                }
-                else {
+                } else {
                     json += iEvent.formatEventToJson(iEvent) + ",";
                 }
             }

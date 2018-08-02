@@ -12,48 +12,47 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private int id;
 
-    @NotNull(message= "Please provide your name")
-    @Size(min=6, max=18)
+    @NotNull(message = "Please provide your name")
+    @Size(min = 6, max = 18)
     private String name;
 
-    @Column(nullable= false, unique = true)
+    @Column(nullable = false, unique = true)
     @Email
-    @NotNull(message="Please provide your email")
+    @NotNull(message = "Please provide your email")
     private String email;
 
     @NotEmpty
-    @Length(min=6, message = "Your password must have at least 6 characters")
+    @Length(min = 6, message = "Your password must have at least 6 characters")
     private String password;
 
     @NotNull
-    @Column(name="color")
+    @Column(name = "color")
     private String color;
 
     @Column(name = "active")
     private int active;
 
-    @Column(name ="is_instructor")
+    @Column(name = "is_instructor")
     private int isInstructor;
 
-    @Column(columnDefinition = "LONGTEXT", name="bio")
+    @Column(columnDefinition = "LONGTEXT", name = "bio")
     private String biography;
 
     @ManyToMany
-    @JoinTable(name="user_role",joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     @OneToMany
-    @JoinColumn(name="event_id")
+    @JoinColumn(name = "event_id")
     private List<Event> events = new ArrayList<>();
-
 
 
     public User() {

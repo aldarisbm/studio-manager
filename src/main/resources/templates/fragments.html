@@ -13,11 +13,12 @@
 <body>
 
 <!--THIS IT THE NAVBAR-->
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <!--<a class="navbar-brand" href="/">Home</a>-->
-    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-    <!--<span class="navbar-toggler-icon"></span>-->
-    <!--</button>-->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -32,7 +33,7 @@
 
 <!--THIS IS THE LOGGED IN NAVBAR-->
 
-<nav th:fragment="loggedInNavbar" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav th:fragment="loggedInNavbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">My Profile</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,17 +56,23 @@
 
 <!--THIS IS THE ADMIN NAVBAR-->
 
-<nav th:fragment="adminNavbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">My Profile</a>
+<nav th:fragment="adminNavbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+    <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">Admin</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/admin/console">Admin Console</a>
+        <a class="dropdown-item" href="/admin/index">Regular Index</a>
+    </div>
+
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/index">Regular Index</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/instructors">Our Instructors</a>
             </li>
@@ -98,18 +105,17 @@
 </div>
 
 
-
 <div th:fragment="setbio">
     <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-        <a class="btn btn-primary" href="/setbiography" role="button">Set Biography</a>
+        <div class="row">
+            <div class="col-sm-6">
+                <a class="btn btn-primary" href="/setbiography" role="button">Set Biography</a>
+            </div>
+            <div class="col-sm-6"></div>
         </div>
-        <div class="col-sm-6"></div>
-    </div>
 
     </div>
-    </div>
+</div>
 
 
 <!--THESE ARE THE SCRIPTS-->

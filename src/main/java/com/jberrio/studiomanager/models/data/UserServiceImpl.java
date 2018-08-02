@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 @Service("userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean isAdmin(User user) {
-        for(Role role : user.getRoles()) {
-            if(role.getId() == 1){
+        for (Role role : user.getRoles()) {
+            if (role.getId() == 1) {
                 return true;
             }
         }
