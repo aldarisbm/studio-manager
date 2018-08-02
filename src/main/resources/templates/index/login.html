@@ -14,10 +14,10 @@
 <div class="container">
     <form th:action="@{/login}" class="form-horizontal" role="form" method="POST">
         <div class="row">
-            <div class="col-md-3 offset-md-1 field-label-responsive">
+            <div class="col-md-3 offset-md-2 field-label-responsive">
                 <label for="email">Email</label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
@@ -29,10 +29,10 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3 offset-md-1 field-label-responsive">
+            <div class="col-md-3 offset-md-2 field-label-responsive">
                 <label for="password">Password</label>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
@@ -57,6 +57,9 @@
 
 
 </div>
+
+
+<div th:replace="fragments :: footer"></div>
 
 
 <div th:replace="fragments :: script">
