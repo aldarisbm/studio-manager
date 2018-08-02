@@ -25,7 +25,15 @@ thymeleaf
 
 ### Project Tracker:
 Pivotal Tracker
-https://www.pivotaltracker.com/n/projects/2185453
+
+[LINK](https://www.pivotaltracker.com/n/projects/2185453)
+
+### Deployed Project:
+
+[Heroku App](https://salty-crag-96322.herokuapp.com/)
+
+##### *Disclaimer: project redeploys from github so it might not work at any given time, also database is a little funky
+
 
 ### Run it:
 Use Java 8
