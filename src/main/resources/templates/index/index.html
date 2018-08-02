@@ -18,17 +18,25 @@
 
 
 <div class="container">
+    <div class="row">
+        <div class="col text-center">
     <h2>Past Classes:</h2><br>
     <ul th:each="event : ${pastEvents}">
         <li th:text="${event.title + ' On ' + event.date}"></li>
     </ul>
+        </div>
+    </div>
 </div>
 
 <div class="container">
+    <div class="row">
+        <div class="col text-center">
     <h2>Scheduled Classes:</h2><br>
     <ul th:each="event : ${futureEvents}">
         <li th:text="${event.title + ' On ' + event.date}"></li>
     </ul>
+        </div>
+    </div>
 </div>
 
 <div th:replace="fragments :: setbio">
