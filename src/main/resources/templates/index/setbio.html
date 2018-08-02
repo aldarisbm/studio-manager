@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head">
+</head>
+
+<body>
+
+<!--THIS IT THE NAVBAR-->
+<nav th:replace="fragments :: loggedInNavbar">
+</nav>
+
+<!--THIS IS THE JUMBOTRON-->
+<div th:replace="fragments :: jumbo">
+</div>
+
+<div th:replace="fragments :: loggedIn"></div>
+
+
+
+<!--THESE ARE THE SCRIPTS-->
+<div th:replace="fragments :: script">
+</div>
+
+<div class="container">
+
+    <form class="form-horizontal" role="form" method="POST">
+        <div class="row">
+            <div class="col-sm-3"></div>
+    <div class="form-group col-sm-6">
+        <label>Set Biography</label>
+        <textarea class="form-control" name="bio" rows="3"></textarea>
+    </div>
+            <div class="col-sm-3"></div>
+    </div>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 offset-2">
+                <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Login</button>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </form>
+</div>
+</div>
+
+
+</body>
+</html>

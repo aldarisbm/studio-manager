@@ -43,6 +43,9 @@ public class User {
     @Column(name ="is_instructor")
     private int isInstructor;
 
+    @Column(columnDefinition = "LONGTEXT", name="bio")
+    private String biography;
+
     @ManyToMany
     @JoinTable(name="user_role",joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles;
@@ -110,6 +113,14 @@ public class User {
 
     public void setIsInstructor(int isInstructor) {
         this.isInstructor = isInstructor;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 
     public Set<Role> getRoles() {

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -158,4 +159,33 @@ public class IndexController {
             return modelAndView;
         }
     }
+
+    @GetMapping(value="setbiography")
+    public ModelAndView setBio(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+        if(user.getIsInstructor() == 1) {
+            modelAndView.addObject("user", user);
+            modelAndView.setViewName("index/setbio");
+            return modelAndView;
+        } else{
+            modelAndView.setViewName("redirect:");
+            return modelAndView;
+        }
+    }
+
+    @RequestMapping(value="setbiography", method=RequestMethod.POST)
+    public ModelAndView postBio(@RequestParam String bio){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        user.setBiography(bio);
+        userDao.save(user);
+        modelAndView.setViewName("redirect:");
+        return modelAndView;
+    }
+
+
 }
