@@ -1,4 +1,4 @@
-package com.jberrio.studiomanager;
+package com.jberrio.studiomanager.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.jberrio.studiomanager;
+package com.jberrio.studiomanager.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

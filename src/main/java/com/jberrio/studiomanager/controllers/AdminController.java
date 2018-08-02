@@ -1,7 +1,7 @@
 package com.jberrio.studiomanager.controllers;
 
 
-import com.jberrio.studiomanager.UserService;
+import com.jberrio.studiomanager.models.data.UserService;
 import com.jberrio.studiomanager.models.Event;
 import com.jberrio.studiomanager.models.Role;
 import com.jberrio.studiomanager.models.User;

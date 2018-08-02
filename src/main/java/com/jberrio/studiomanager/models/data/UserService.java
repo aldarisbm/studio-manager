@@ -1,4 +1,4 @@
-package com.jberrio.studiomanager;
+package com.jberrio.studiomanager.models.data;
 
 import com.jberrio.studiomanager.models.User;
 

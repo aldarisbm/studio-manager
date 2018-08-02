@@ -1,9 +1,7 @@
-package com.jberrio.studiomanager;
+package com.jberrio.studiomanager.models.data;
 
 import com.jberrio.studiomanager.models.Role;
 import com.jberrio.studiomanager.models.User;
-import com.jberrio.studiomanager.models.data.RoleDao;
-import com.jberrio.studiomanager.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
