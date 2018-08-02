@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -140,6 +141,41 @@ public class AdminController {
         userDao.save(newInstructor.get());
 
         return new ModelAndView("redirect:console");
+    }
+
+    @GetMapping(value="index")
+    public ModelAndView index() throws ParseException{
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+
+        List<Event> pastLoggedInEvents = new ArrayList<>();
+        List<Event> futureLoggedInEvents = new ArrayList<>();
+        ModelAndView modelAndView = new ModelAndView();
+
+        for(Event event : eventDao.findAll()){
+            if(event.getUser().getId()==user.getId()){
+                //formats todays date to the same format as the event date to be able to compare
+
+                Date eventDate = new SimpleDateFormat("yyyy-MM-dd").parse(event.getDate());
+                LocalDateTime ldt = LocalDateTime.now();
+                DateTimeFormatter formmat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+                String formatter = formmat1.format(ldt);
+                Date todaysDate = new SimpleDateFormat("yyyy-MM-dd").parse(formatter);
+
+                if(eventDate.compareTo(todaysDate) < 0){
+                    pastLoggedInEvents.add(event);
+                } else {
+                    futureLoggedInEvents.add(event);
+                }
+            }
+        }
+
+        modelAndView.addObject("pastEvents", pastLoggedInEvents);
+        modelAndView.addObject("futureEvents", futureLoggedInEvents);
+        modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
+        modelAndView.setViewName("admin/index");
+        return modelAndView;
     }
 
 
