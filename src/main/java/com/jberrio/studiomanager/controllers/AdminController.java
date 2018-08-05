@@ -178,6 +178,9 @@ public class AdminController {
     }
 
 
+
+    //SEEDS THE CALENDAR WITH RANDOM EVENTS
+
     @GetMapping(value="seed")
     public ModelAndView seed(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -188,19 +191,45 @@ public class AdminController {
         Random rand = new Random();
         Event aRandomEvent = new Event();
         for(int i = 0; i < 100;i++){
+            aRandomEvent.setInstructorId(rand.nextInt(3));
+            aRandomEvent.setUser(userDao.findById(rand.nextInt(3)).get());
             String year = "2018";
             List<String> AMorPM = Arrays.asList("AM","PM");
             String SECONDS = "00";
-            String randomDay = Integer.toString(rand.nextInt(29));
-            String randomMonth = Integer.toString(rand.nextInt(13));
+
+            Integer daySeed = rand.nextInt(29);
+            Integer monthSeed = rand.nextInt(13);
+
+            String randomDay = "";
+            String randomMonth = "";
+
+            if(daySeed<10){
+                randomDay = "0"+Integer.toString(daySeed);
+            }else{
+                randomDay = Integer.toString(daySeed);
+            }
+
+            if(monthSeed<10){
+                randomMonth = "0"+Integer.toString(monthSeed);
+            } else{
+                randomMonth = Integer.toString(monthSeed);
+            }
+
             String hour = Integer.toString(rand.nextInt(13));
             List<String> minutes = Arrays.asList("00","15","30","45");
 
+            aRandomEvent.setDate(year+"-"+randomMonth+"-"+randomDay);
+            aRandomEvent.setRoom("Studio 1");
+
+            aRandomEvent.setTitle("I: " + userDao.getOne(aRandomEvent.getInstructorId()).getName() + " | S: "
+                    + aRandomEvent.getUser().getName() + " | R: " + aRandomEvent.getRoom());
+
+            aRandomEvent.setStart(aRandomEvent.getDate()+"T");
+
+            aRandomEvent.setEnd(aRandomEvent.getDate()+"T");
 
 
-            aRandomEvent.setInstructorId(rand.nextInt(4));
-            aRandomEvent.setUser(userDao.findById(rand.nextInt(4)).get());
-
+            aRandomEvent.setColor(aRandomEvent.getUser().getColor());
 
             eventDao.save(aRandomEvent);
         }
