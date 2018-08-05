@@ -1,11 +1,11 @@
 package com.jberrio.studiomanager.controllers;
 
 
-import com.jberrio.studiomanager.models.data.UserService;
 import com.jberrio.studiomanager.models.Event;
 import com.jberrio.studiomanager.models.User;
 import com.jberrio.studiomanager.models.data.EventDao;
 import com.jberrio.studiomanager.models.data.UserDao;
+import com.jberrio.studiomanager.models.data.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -86,7 +86,9 @@ public class CalendarController {
 
         Optional<User> instructor = userDao.findById(event.getInstructorId());
 
-        String successInstructor = "Instructor: " + instructor.get().getName();
+        char lastInitial = instructor.get().getLastName().toUpperCase().charAt(0);
+
+        String successInstructor = "Instructor: " + instructor.get().getName()+" "+lastInitial+'.';
         String sucessDate = "Date: " + event.getDate() +
                 ", " + event.getStart() + " to " + event.getEnd();
 

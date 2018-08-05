@@ -21,8 +21,12 @@ public class User {
     private int id;
 
     @NotNull(message = "Please provide your name")
-    @Size(min = 6, max = 18)
+    @Size(min = 2, max = 12)
     private String name;
+
+    @NotNull(message="Please provide your last name")
+    @Size(min=2, max = 12)
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     @Email
@@ -130,4 +134,11 @@ public class User {
         this.roles = roles;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
                             <span class="text-danger align-middle" th:errors="*{name}"></span>
@@ -42,6 +42,31 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-md-2 offset-md-3 field-label-responsive">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="text" name="lastName" class="form-control" id="lastName"
+                               placeholder="Your Last Name" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                            <span class="text-danger align-middle" th:errors="*{lastName}"></span>
+                            <!-- Put name validation error messages here -->
+                        </span>
+                </div>
+            </div>
+        </div>
+
 
         <div class="row">
             <div class="col-md-2 offset-md-3 field-label-responsive">
@@ -56,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
                             <span class="text-danger align-middle" th:errors="*{email}"></span>
@@ -80,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-control-feedback">
                 </div>
             </div>
@@ -135,11 +160,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-control-feedback">
                         <span class="text-danger align-middle">
                             <span class="text-danger align-middle" th:errors="*{color}"></span>
-                            <!-- Put e-mail validation error messages here -->
+                            <!-- Put name validation error messages here -->
                         </span>
                 </div>
             </div>
@@ -153,10 +178,9 @@
             <div class="col-sm-3"></div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-12"></div>
-        </div>
+
     </form>
+
 </div>
 
 

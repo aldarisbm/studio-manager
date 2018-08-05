@@ -178,6 +178,38 @@ public class AdminController {
     }
 
 
+    @GetMapping(value="seed")
+    public ModelAndView seed(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("redirect:calendar");
+        Random rand = new Random();
+        Event aRandomEvent = new Event();
+        for(int i = 0; i < 100;i++){
+            String year = "2018";
+            List<String> AMorPM = Arrays.asList("AM","PM");
+            String SECONDS = "00";
+            String randomDay = Integer.toString(rand.nextInt(29));
+            String randomMonth = Integer.toString(rand.nextInt(13));
+            String hour = Integer.toString(rand.nextInt(13));
+            List<String> minutes = Arrays.asList("00","15","30","45");
+
+
+
+            aRandomEvent.setInstructorId(rand.nextInt(4));
+            aRandomEvent.setUser(userDao.findById(rand.nextInt(4)).get());
+
+
+            eventDao.save(aRandomEvent);
+        }
+
+        return modelAndView;
+    }
+
+
+
     //PROCESSES ALL OF THE ADMIN NEEDED INFO
 
     public ModelAndView allInfoAdmin() throws ParseException {
