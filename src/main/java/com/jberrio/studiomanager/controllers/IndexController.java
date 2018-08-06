@@ -113,6 +113,16 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+
+        List<User> instructors = new ArrayList<>();
+
+        for (User instructor : userDao.findAll()) {
+            if (instructor.getIsInstructor() == 1) {
+                instructors.add(instructor);
+            }
+        }
+
+        modelAndView.addObject("instructors", instructors);
         modelAndView.addObject("jumbo", "Instructors");
         modelAndView.setViewName("index/instructors");
         return modelAndView;
