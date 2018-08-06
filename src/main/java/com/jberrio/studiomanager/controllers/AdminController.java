@@ -200,7 +200,6 @@ public class AdminController {
             aRandomEvent.setInstructorId(randomInstructor);
             aRandomEvent.setUser(userDao.findById(randomUser).get());
             String year = "2018";
-            String SECONDS = "00";
 
             Integer daySeed = rand.nextInt(28);
             Integer monthSeed = rand.nextInt(12);
