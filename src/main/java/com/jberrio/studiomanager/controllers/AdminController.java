@@ -187,18 +187,25 @@ public class AdminController {
         User user = userService.findUserByEmail(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("redirect:calendar");
+        modelAndView.setViewName("redirect:/calendar");
         Random rand = new Random();
-        Event aRandomEvent = new Event();
-        for(int i = 0; i < 100;i++){
-            aRandomEvent.setInstructorId(rand.nextInt(3));
-            aRandomEvent.setUser(userDao.findById(rand.nextInt(3)).get());
+        for(int i = 0; i < 500;i++){
+            Event aRandomEvent = new Event();
+            int randomInstructor = rand.nextInt(5)+1;
+            int randomUser = rand.nextInt(5)+1;
+            while(randomUser == randomInstructor){
+                randomUser = rand.nextInt(5)+1;
+            }
+
+            aRandomEvent.setInstructorId(randomInstructor);
+            aRandomEvent.setUser(userDao.findById(randomUser).get());
             String year = "2018";
-            List<String> AMorPM = Arrays.asList("AM","PM");
             String SECONDS = "00";
 
-            Integer daySeed = rand.nextInt(29);
-            Integer monthSeed = rand.nextInt(13);
+            Integer daySeed = rand.nextInt(28);
+            Integer monthSeed = rand.nextInt(12);
+
+            Integer endTimeSeed = rand.nextInt();
 
             String randomDay = "";
             String randomMonth = "";
@@ -215,7 +222,7 @@ public class AdminController {
                 randomMonth = Integer.toString(monthSeed);
             }
 
-            String hour = Integer.toString(rand.nextInt(13));
+            String hour = Integer.toString(rand.nextInt(12));
             List<String> minutes = Arrays.asList("00","15","30","45");
 
             aRandomEvent.setDate(year+"-"+randomMonth+"-"+randomDay);
@@ -224,10 +231,11 @@ public class AdminController {
             aRandomEvent.setTitle("I: " + userDao.getOne(aRandomEvent.getInstructorId()).getName() + " | S: "
                     + aRandomEvent.getUser().getName() + " | R: " + aRandomEvent.getRoom());
 
-            aRandomEvent.setStart(aRandomEvent.getDate()+"T");
 
-            aRandomEvent.setEnd(aRandomEvent.getDate()+"T");
 
+            aRandomEvent.setStart(aRandomEvent.getDate()+"T"+randomMonth+":"+minutes.get(rand.nextInt(4))+":00");
+
+            aRandomEvent.setEnd(aRandomEvent.getDate()+"T"+Integer.toString(rand.nextInt(12)+12)+":"+minutes.get(rand.nextInt(4))+":00");
 
             aRandomEvent.setColor(aRandomEvent.getUser().getColor());
 
