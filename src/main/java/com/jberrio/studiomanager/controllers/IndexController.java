@@ -76,18 +76,6 @@ public class IndexController {
         return modelAndView;
     }
 
-//    @RequestMapping(value="admin", method = RequestMethod.GET)
-//    public ModelAndView home(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.findUserByEmail(auth.getName());
-//        modelAndView.addObject("userName", "Welcome " + user.getName() + " (" + user.getEmail() + ")");
-//        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-//        modelAndView.addObject("jumbo","Welcome");
-//        modelAndView.setViewName("welcome");
-//        return modelAndView;
-//    }
-
     @GetMapping(value = "contactus")
     public ModelAndView contactUs() {
         ModelAndView modelAndView = new ModelAndView();
