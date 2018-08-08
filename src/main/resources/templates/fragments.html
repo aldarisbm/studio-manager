@@ -46,7 +46,8 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Calendars
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -88,7 +89,8 @@
 
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Calendars
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -116,24 +118,19 @@
 
 <!--THIS IS A LOGGED IN USER BAR-->
 <div th:fragment="loggedIn">
-    <div class="container text-right"><p th:inline="text">[[${#httpServletRequest.remoteUser}]] | <a
-            th:href="@{/logout}">Log Out</a></p></div>
+    <div class="container text-right">
+        <p th:inline="text">[[${#httpServletRequest.remoteUser}]] |
+            <a th:href="@{/setbiography}">Set Bio</a> |
+            <a th:href="@{/logout}"> Log Out</a>
+
+        </p>
+    </div>
     <!--<form th:action="@{/logout}" method="post">-->
     <!--<input type="submit" value="Sign Out"/>-->
     <!--</form>-->
 </div>
 
-<!--THIS IS THE SET BIOGRAPHY BUTTON-->
-<div th:fragment="setbio">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-sm-6 offset-sm-3">
-                <a class="btn btn-primary" href="/setbiography" role="button">Set Biography</a>
-            </div>
-        </div>
 
-    </div>
-</div>
 
 
 <!--THESE ARE THE SCRIPTS-->
@@ -161,7 +158,6 @@
     </footer>
 
 </div>
-
 
 
 </body>
