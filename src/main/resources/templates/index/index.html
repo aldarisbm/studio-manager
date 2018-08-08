@@ -18,11 +18,28 @@
 
 
 <div class="container">
-
+<!--TODO FIX THIS-->
     <div class="row">
+    <div class="col-md-6 offset-md-3"><h3>Please confirm these proposed dates:</h3></div>
 
     </div>
 
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <tr>
+                <td>To Confirm Classes</td>
+                <td th:each="inactiveEvent : ${inactiveEvents}">
+                    <th:block>
+                        <input type="checkbox" name="events" th:value="${inactiveEvent.id}"/>
+                        <label th:text="${inactiveEvent.title + 'On' + inactiveEvent.date}"></label>
+                    </th:block>
+                </td>
+            </tr>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
 
 
 

@@ -125,16 +125,21 @@ public class IndexController {
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("id",user.getId());
         if (userService.isAdmin(user)) {
-//            modelAndView.addObject("jumbo","Welcome Admin");
-//            List<User> users = userDao.findAll();
-//            modelAndView.addObject("users", users);
             modelAndView.setViewName("redirect:admin/console");
             return modelAndView;
         } else {
             List<Event> pastLoggedInEvents = new ArrayList<>();
             List<Event> futureLoggedInEvents = new ArrayList<>();
+            List<Event> inactiveEvents = new ArrayList<>();
 
-            for (Event event : eventDao.findAll()) {
+            for(Event event: eventDao.findByIsActive(0)){
+                if(event.getInstructorId() == user.getId()){
+                    inactiveEvents.add(event);
+                }
+            }
+
+
+            for (Event event : eventDao.findByIsActive(1)) {
                 if (event.getUser().getId() == user.getId()) {
                     //formats todays date to the same format as the event date to be able to compare
 
@@ -152,6 +157,7 @@ public class IndexController {
                 }
             }
 
+            modelAndView.addObject("inactiveEvents",inactiveEvents);
             modelAndView.addObject("pastEvents", pastLoggedInEvents);
             modelAndView.addObject("futureEvents", futureLoggedInEvents);
             modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
