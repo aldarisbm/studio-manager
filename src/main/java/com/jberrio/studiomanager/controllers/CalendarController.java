@@ -119,6 +119,7 @@ public class CalendarController {
 
         event.setColor(user.getColor());
         event.setUser(user);
+        event.setIsActive(0);
         eventDao.save(event);
 
         return modelAndView;
@@ -130,7 +131,7 @@ public class CalendarController {
         String json = "";
         try {
 
-            ListIterator<Event> iterator = eventDao.findAll().listIterator();
+            ListIterator<Event> iterator = eventDao.findByIsActive(1).listIterator();
             json += "[";
 
             while (iterator.hasNext()) {
@@ -155,8 +156,8 @@ public class CalendarController {
         try {
 
             List<Event> userEvents = new ArrayList<>();
-            for(Event event : eventDao.findAll()){
-                if(event.getId() == id || event.getInstructorId() == id){
+            for(Event event : eventDao.findByIsActive(1)){
+                if(event.getUser().getId() == id || event.getInstructorId() == id){
                     userEvents.add(event);
                 }
             }

@@ -150,7 +150,7 @@ public class AdminController {
         List<Event> futureLoggedInEvents = new ArrayList<>();
         ModelAndView modelAndView = new ModelAndView();
 
-        for (Event event : eventDao.findAll()) {
+        for (Event event : eventDao.findByIsActive(1)) {
             if (event.getUser().getId() == user.getId()) {
                 //formats todays date to the same format as the event date to be able to compare
 
@@ -189,10 +189,10 @@ public class AdminController {
         Random rand = new Random();
         for(int i = 0; i < 500;i++){
             Event aRandomEvent = new Event();
-            int randomInstructor = rand.nextInt(5)+1;
-            int randomUser = rand.nextInt(5)+1;
+            int randomInstructor = rand.nextInt(userDao.findAll().size())+1;
+            int randomUser = rand.nextInt(userDao.findAll().size())+1;
             while(randomUser == randomInstructor){
-                randomUser = rand.nextInt(5)+1;
+                randomUser = rand.nextInt(userDao.findAll().size())+1;
             }
 
             aRandomEvent.setInstructorId(randomInstructor);
@@ -235,7 +235,7 @@ public class AdminController {
             aRandomEvent.setEnd(aRandomEvent.getDate()+"T"+Integer.toString(rand.nextInt(12)+12)+":"+minutes.get(rand.nextInt(4))+":00");
 
             aRandomEvent.setColor(aRandomEvent.getUser().getColor());
-
+            aRandomEvent.setIsActive(1);
             eventDao.save(aRandomEvent);
         }
 
