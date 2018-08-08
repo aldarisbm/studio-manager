@@ -166,6 +166,20 @@ public class IndexController {
         }
     }
 
+    @RequestMapping(value="",method=RequestMethod.POST)
+    public ModelAndView processInactive(@RequestParam(value="listOfIds") int[] listOfIds){
+        ModelAndView modelAndView = new ModelAndView();
+
+        for(int i = 0; i < listOfIds.length; i++){
+            Event event = eventDao.findById(listOfIds[i]).get();
+            event.setIsActive(1);
+            eventDao.save(event);
+        }
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
+    }
+
+
     @GetMapping(value = "setbiography")
     public ModelAndView setBio() {
         ModelAndView modelAndView = new ModelAndView();
