@@ -17,30 +17,29 @@
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-<table class="table">
+        <table class="table">
 
-    <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Bio</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="instructor : ${instructors}">
-        <th scope="row" th:text="${instructor.id}"></th>
-        <td th:text="${instructor.name}"></td>
-        <td th:text="${instructor.lastName}"></td>
-        <td th:text="${instructor.biography}"></td>
-    </tr>
-    </tbody>
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Bio</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="instructor : ${instructors}">
+                <th scope="row" th:text="${instructor.id}"></th>
+                <td th:text="${instructor.name}"></td>
+                <td th:text="${instructor.lastName}"></td>
+                <td th:text="${instructor.biography}"></td>
+            </tr>
+            </tbody>
 
-</table>
+        </table>
     </div>
-<div class="col-sm-2"></div>
+    <div class="col-sm-2"></div>
 </div>
-
 
 
 <div th:replace="fragments :: footer"></div>

@@ -176,23 +176,22 @@ public class AdminController {
     }
 
 
-
     //SEEDS THE CALENDAR WITH RANDOM EVENTS
 
-    @GetMapping(value="seed")
-    public ModelAndView seed(){
+    @GetMapping(value = "seed")
+    public ModelAndView seed() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("redirect:/calendar");
         Random rand = new Random();
-        for(int i = 0; i < 500;i++){
+        for (int i = 0; i < 500; i++) {
             Event aRandomEvent = new Event();
-            int randomInstructor = rand.nextInt(userDao.findAll().size())+1;
-            int randomUser = rand.nextInt(userDao.findAll().size())+1;
-            while(randomUser == randomInstructor){
-                randomUser = rand.nextInt(userDao.findAll().size())+1;
+            int randomInstructor = rand.nextInt(userDao.findAll().size()) + 1;
+            int randomUser = rand.nextInt(userDao.findAll().size()) + 1;
+            while (randomUser == randomInstructor) {
+                randomUser = rand.nextInt(userDao.findAll().size()) + 1;
             }
 
             aRandomEvent.setInstructorId(randomInstructor);
@@ -207,32 +206,31 @@ public class AdminController {
             String randomDay = "";
             String randomMonth = "";
 
-            if(daySeed<10){
-                randomDay = "0"+Integer.toString(daySeed);
-            }else{
+            if (daySeed < 10) {
+                randomDay = "0" + Integer.toString(daySeed);
+            } else {
                 randomDay = Integer.toString(daySeed);
             }
 
-            if(monthSeed<10){
-                randomMonth = "0"+Integer.toString(monthSeed);
-            } else{
+            if (monthSeed < 10) {
+                randomMonth = "0" + Integer.toString(monthSeed);
+            } else {
                 randomMonth = Integer.toString(monthSeed);
             }
 
             String hour = Integer.toString(rand.nextInt(12));
-            List<String> minutes = Arrays.asList("00","15","30","45");
+            List<String> minutes = Arrays.asList("00", "15", "30", "45");
 
-            aRandomEvent.setDate(year+"-"+randomMonth+"-"+randomDay);
+            aRandomEvent.setDate(year + "-" + randomMonth + "-" + randomDay);
             aRandomEvent.setRoom("Studio 1");
 
             aRandomEvent.setTitle("I: " + userDao.getOne(aRandomEvent.getInstructorId()).getName() + " | S: "
                     + aRandomEvent.getUser().getName() + " | R: " + aRandomEvent.getRoom());
 
 
+            aRandomEvent.setStart(aRandomEvent.getDate() + "T" + randomMonth + ":" + minutes.get(rand.nextInt(4)) + ":00");
 
-            aRandomEvent.setStart(aRandomEvent.getDate()+"T"+randomMonth+":"+minutes.get(rand.nextInt(4))+":00");
-
-            aRandomEvent.setEnd(aRandomEvent.getDate()+"T"+Integer.toString(rand.nextInt(12)+12)+":"+minutes.get(rand.nextInt(4))+":00");
+            aRandomEvent.setEnd(aRandomEvent.getDate() + "T" + Integer.toString(rand.nextInt(12) + 12) + ":" + minutes.get(rand.nextInt(4)) + ":00");
 
             aRandomEvent.setColor(aRandomEvent.getUser().getColor());
             aRandomEvent.setIsActive(1);
@@ -243,14 +241,13 @@ public class AdminController {
     }
 
 
-
     //PROCESSES ALL OF THE ADMIN NEEDED INFO
 
     public ModelAndView allInfoAdmin() throws ParseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
 
         List<User> admins = new LinkedList<>();
         List<User> users = new LinkedList<>();

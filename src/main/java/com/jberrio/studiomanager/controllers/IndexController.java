@@ -81,7 +81,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
         modelAndView.addObject("jumbo", "Contact Us");
         modelAndView.setViewName("index/contactus");
         return modelAndView;
@@ -92,7 +92,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
         modelAndView.addObject("jumbo", "About Us");
         modelAndView.setViewName("index/aboutus");
         return modelAndView;
@@ -103,7 +103,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
         List<User> instructors = new ArrayList<>();
 
         for (User instructor : userDao.findAll()) {
@@ -123,7 +123,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
         if (userService.isAdmin(user)) {
             modelAndView.setViewName("redirect:admin/console");
             return modelAndView;
@@ -132,8 +132,8 @@ public class IndexController {
             List<Event> futureLoggedInEvents = new ArrayList<>();
             List<Event> inactiveEvents = new ArrayList<>();
 
-            for(Event event: eventDao.findByIsActive(0)){
-                if(event.getInstructorId() == user.getId()){
+            for (Event event : eventDao.findByIsActive(0)) {
+                if (event.getInstructorId() == user.getId()) {
                     inactiveEvents.add(event);
                 }
             }
@@ -157,7 +157,7 @@ public class IndexController {
                 }
             }
 
-            modelAndView.addObject("inactiveEvents",inactiveEvents);
+            modelAndView.addObject("inactiveEvents", inactiveEvents);
             modelAndView.addObject("pastEvents", pastLoggedInEvents);
             modelAndView.addObject("futureEvents", futureLoggedInEvents);
             modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
@@ -166,11 +166,11 @@ public class IndexController {
         }
     }
 
-    @RequestMapping(value="",method=RequestMethod.POST)
-    public ModelAndView processInactive(@RequestParam(value="listOfIds") int[] listOfIds){
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ModelAndView processInactive(@RequestParam(value = "listOfIds") int[] listOfIds) {
         ModelAndView modelAndView = new ModelAndView();
 
-        for(int i = 0; i < listOfIds.length; i++){
+        for (int i = 0; i < listOfIds.length; i++) {
             Event event = eventDao.findById(listOfIds[i]).get();
             event.setIsActive(1);
             eventDao.save(event);
@@ -185,7 +185,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
         if (user.getIsInstructor() == 1) {
             modelAndView.addObject("user", user);
             modelAndView.setViewName("index/setbio");

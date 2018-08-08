@@ -37,7 +37,7 @@ public class CalendarController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
         modelAndView.addObject("jumbo", "Calendar");
         modelAndView.addObject("json", writeToJsonString());
         modelAndView.setViewName("calendar/agenda-views");
@@ -45,13 +45,13 @@ public class CalendarController {
     }
 
 
-    @RequestMapping(value="{id}")
-    public ModelAndView calendar(@PathVariable int id){
+    @RequestMapping(value = "{id}")
+    public ModelAndView calendar(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("id",user.getId());
-        modelAndView.addObject("jumbo", userDao.findById(id).get().getName()+"'s Calendar");
+        modelAndView.addObject("id", user.getId());
+        modelAndView.addObject("jumbo", userDao.findById(id).get().getName() + "'s Calendar");
         modelAndView.addObject("json", writeToJsonString(id));
         modelAndView.setViewName("calendar/agenda-views");
         return modelAndView;
@@ -64,7 +64,7 @@ public class CalendarController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         List<User> instructors = new ArrayList<>();
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
 
         for (User instructor : userDao.findAll()) {
             if (instructor.getIsInstructor() == 1) {
@@ -102,7 +102,7 @@ public class CalendarController {
 
         char lastInitial = instructor.get().getLastName().toUpperCase().charAt(0);
 
-        String successInstructor = "Instructor: " + instructor.get().getName()+" "+lastInitial+'.';
+        String successInstructor = "Instructor: " + instructor.get().getName() + " " + lastInitial + '.';
         String sucessDate = "Date: " + event.getDate() +
                 ", " + event.getStart() + " to " + event.getEnd();
 
@@ -114,7 +114,7 @@ public class CalendarController {
 
         modelAndView.addObject("successInstructor", successInstructor);
         modelAndView.addObject("successDate", sucessDate);
-        modelAndView.addObject("id",user.getId());
+        modelAndView.addObject("id", user.getId());
         modelAndView.setViewName("calendar/success");
 
         event.setColor(user.getColor());
@@ -156,8 +156,8 @@ public class CalendarController {
         try {
 
             List<Event> userEvents = new ArrayList<>();
-            for(Event event : eventDao.findByIsActive(1)){
-                if(event.getUser().getId() == id || event.getInstructorId() == id){
+            for (Event event : eventDao.findByIsActive(1)) {
+                if (event.getUser().getId() == id || event.getInstructorId() == id) {
                     userEvents.add(event);
                 }
             }
