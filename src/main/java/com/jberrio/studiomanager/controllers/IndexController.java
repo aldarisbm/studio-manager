@@ -81,6 +81,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("id",user.getId());
         modelAndView.addObject("jumbo", "Contact Us");
         modelAndView.setViewName("index/contactus");
         return modelAndView;
@@ -91,6 +92,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("id",user.getId());
         modelAndView.addObject("jumbo", "About Us");
         modelAndView.setViewName("index/aboutus");
         return modelAndView;
@@ -101,7 +103,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
+        modelAndView.addObject("id",user.getId());
         List<User> instructors = new ArrayList<>();
 
         for (User instructor : userDao.findAll()) {
@@ -121,7 +123,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
+        modelAndView.addObject("id",user.getId());
         if (userService.isAdmin(user)) {
 //            modelAndView.addObject("jumbo","Welcome Admin");
 //            List<User> users = userDao.findAll();
@@ -163,7 +165,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
+        modelAndView.addObject("id",user.getId());
         if (user.getIsInstructor() == 1) {
             modelAndView.addObject("user", user);
             modelAndView.setViewName("index/setbio");

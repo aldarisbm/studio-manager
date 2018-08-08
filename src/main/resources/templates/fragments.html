@@ -44,9 +44,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="/instructors">Our Instructors</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/calendar">Calendar</a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Calendars
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/calendar">Full Calendar</a>
+                    <a class="dropdown-item" th:href="${'/calendar/'+id}">My Calendar</a>
+                </div>
             </li>
+
+
             <li class="nav-item">
                 <a class="nav-link" href="/calendar/schedule">Schedule</a>
             </li>
@@ -76,9 +85,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="/instructors">Our Instructors</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/calendar">Calendar</a>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Calendars
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/calendar">Full Calendar</a>
+                    <a class="dropdown-item" th:href="${'/calendar/'+id}">My Calendar</a>
+                </div>
             </li>
+
+
             <li class="nav-item">
                 <a class="nav-link" href="/calendar/schedule">Schedule</a>
             </li>
@@ -135,7 +154,7 @@
     <footer class="page-footer font-small blue">
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright: Jose Berrio
+        <div class="footer-copyright text-center py-3">© 2018 Copyright: manage.io
         </div>
         <!-- Copyright -->
 

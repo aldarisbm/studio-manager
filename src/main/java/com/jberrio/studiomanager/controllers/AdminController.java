@@ -38,10 +38,8 @@ public class AdminController {
     //    GIVES A LIST ALL OF ADMINS AND USERS
     @RequestMapping(value = "console", method = RequestMethod.GET)
     public ModelAndView getConsole() throws Exception {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
 
         return allInfoAdmin();
     }
@@ -249,8 +247,10 @@ public class AdminController {
     //PROCESSES ALL OF THE ADMIN NEEDED INFO
 
     public ModelAndView allInfoAdmin() throws ParseException {
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("id",user.getId());
 
         List<User> admins = new LinkedList<>();
         List<User> users = new LinkedList<>();
