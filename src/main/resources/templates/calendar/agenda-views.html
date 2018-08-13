@@ -13,11 +13,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
             integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
             crossorigin="anonymous"></script>
-    <link th:href='@{/css/fullcalendar.min.css}' rel='stylesheet'/>
-    <link th:href='@{/css/fullcalendar.print.min.css}' rel='stylesheet' media='print'/>
+    <!--<link th:href='@{/css/fullcalendar.min.css}' rel='stylesheet'/>-->
+    <!--<link th:href='@{/css/fullcalendar.print.min.css}' rel='stylesheet' media='print'/>-->
+    <!--<script th:src='@{/js/fullcalendar.min.js}'></script>-->
+    <!--<script th:src='@{/js/fullcalendar.min.js}'></script>-->
+
     <script th:src='@{/lib/moment.min.js}'></script>
     <script th:src='@{/lib/jquery.min.js}'></script>
-    <script th:src='@{/js/fullcalendar.min.js}'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css"  media="print"/>
+
+
+
+
     <script th:inline="javascript">
 
   $(document).ready(function() {
