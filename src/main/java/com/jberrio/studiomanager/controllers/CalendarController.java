@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -39,11 +37,26 @@ public class CalendarController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("jumbo", "My Calendar");
+        modelAndView.addObject("id", user.getId());
+        modelAndView.addObject("jumbo", "Calendar");
         modelAndView.addObject("json", writeToJsonString());
         modelAndView.setViewName("calendar/agenda-views");
         return modelAndView;
     }
+
+
+    @RequestMapping(value = "{id}")
+    public ModelAndView calendar(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("id", user.getId());
+        modelAndView.addObject("jumbo", userDao.findById(id).get().getName() + "'s Calendar");
+        modelAndView.addObject("json", writeToJsonString(id));
+        modelAndView.setViewName("calendar/agenda-views");
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = "schedule")
     public ModelAndView eventForm() {
@@ -51,6 +64,7 @@ public class CalendarController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         List<User> instructors = new ArrayList<>();
+        modelAndView.addObject("id", user.getId());
 
         for (User instructor : userDao.findAll()) {
             if (instructor.getIsInstructor() == 1) {
@@ -88,7 +102,7 @@ public class CalendarController {
 
         char lastInitial = instructor.get().getLastName().toUpperCase().charAt(0);
 
-        String successInstructor = "Instructor: " + instructor.get().getName()+" "+lastInitial+'.';
+        String successInstructor = "Instructor: " + instructor.get().getName() + " " + lastInitial + '.';
         String sucessDate = "Date: " + event.getDate() +
                 ", " + event.getStart() + " to " + event.getEnd();
 
@@ -100,9 +114,12 @@ public class CalendarController {
 
         modelAndView.addObject("successInstructor", successInstructor);
         modelAndView.addObject("successDate", sucessDate);
+        modelAndView.addObject("id", user.getId());
         modelAndView.setViewName("calendar/success");
+
         event.setColor(user.getColor());
         event.setUser(user);
+        event.setIsActive(0);
         eventDao.save(event);
 
         return modelAndView;
@@ -114,7 +131,7 @@ public class CalendarController {
         String json = "";
         try {
 
-            ListIterator<Event> iterator = eventDao.findAll().listIterator();
+            ListIterator<Event> iterator = eventDao.findByIsActive(1).listIterator();
             json += "[";
 
             while (iterator.hasNext()) {
@@ -130,6 +147,38 @@ public class CalendarController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return json;
+    }
+
+
+    public String writeToJsonString(int id) {
+        String json = "";
+        try {
+
+            List<Event> userEvents = new ArrayList<>();
+            for (Event event : eventDao.findByIsActive(1)) {
+                if (event.getUser().getId() == id || event.getInstructorId() == id) {
+                    userEvents.add(event);
+                }
+            }
+
+            ListIterator<Event> iterator = userEvents.listIterator();
+            json += "[";
+
+            while (iterator.hasNext()) {
+                Event iEvent = iterator.next();
+                if (!iterator.hasNext()) {
+                    json += iEvent.formatEventToJson(iEvent);
+                } else {
+                    json += iEvent.formatEventToJson(iEvent) + ",";
+                }
+            }
+            json += "]";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(json);
         return json;
     }
 }

@@ -44,6 +44,8 @@ public class Event {
     @Expose
     private String color;
 
+    private int isActive;
+
     public Event() {
     }
 
@@ -117,6 +119,14 @@ public class Event {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     public String formatEventToJson(Event event) {

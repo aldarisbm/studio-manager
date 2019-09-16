@@ -76,23 +76,12 @@ public class IndexController {
         return modelAndView;
     }
 
-//    @RequestMapping(value="admin", method = RequestMethod.GET)
-//    public ModelAndView home(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.findUserByEmail(auth.getName());
-//        modelAndView.addObject("userName", "Welcome " + user.getName() + " (" + user.getEmail() + ")");
-//        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-//        modelAndView.addObject("jumbo","Welcome");
-//        modelAndView.setViewName("welcome");
-//        return modelAndView;
-//    }
-
     @GetMapping(value = "contactus")
     public ModelAndView contactUs() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("id", user.getId());
         modelAndView.addObject("jumbo", "Contact Us");
         modelAndView.setViewName("index/contactus");
         return modelAndView;
@@ -103,6 +92,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("id", user.getId());
         modelAndView.addObject("jumbo", "About Us");
         modelAndView.setViewName("index/aboutus");
         return modelAndView;
@@ -113,6 +103,16 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("id", user.getId());
+        List<User> instructors = new ArrayList<>();
+
+        for (User instructor : userDao.findAll()) {
+            if (instructor.getIsInstructor() == 1) {
+                instructors.add(instructor);
+            }
+        }
+
+        modelAndView.addObject("instructors", instructors);
         modelAndView.addObject("jumbo", "Instructors");
         modelAndView.setViewName("index/instructors");
         return modelAndView;
@@ -123,18 +123,23 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
+        modelAndView.addObject("id", user.getId());
         if (userService.isAdmin(user)) {
-//            modelAndView.addObject("jumbo","Welcome Admin");
-//            List<User> users = userDao.findAll();
-//            modelAndView.addObject("users", users);
             modelAndView.setViewName("redirect:admin/console");
             return modelAndView;
         } else {
             List<Event> pastLoggedInEvents = new ArrayList<>();
             List<Event> futureLoggedInEvents = new ArrayList<>();
+            List<Event> inactiveEvents = new ArrayList<>();
 
-            for (Event event : eventDao.findAll()) {
+            for (Event event : eventDao.findByIsActive(0)) {
+                if (event.getInstructorId() == user.getId()) {
+                    inactiveEvents.add(event);
+                }
+            }
+
+
+            for (Event event : eventDao.findByIsActive(1)) {
                 if (event.getUser().getId() == user.getId()) {
                     //formats todays date to the same format as the event date to be able to compare
 
@@ -152,6 +157,7 @@ public class IndexController {
                 }
             }
 
+            modelAndView.addObject("inactiveEvents", inactiveEvents);
             modelAndView.addObject("pastEvents", pastLoggedInEvents);
             modelAndView.addObject("futureEvents", futureLoggedInEvents);
             modelAndView.addObject("jumbo", "Welcome To Our Studio Manager");
@@ -160,12 +166,26 @@ public class IndexController {
         }
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ModelAndView processInactive(@RequestParam(value = "listOfIds") int[] listOfIds) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        for (int i = 0; i < listOfIds.length; i++) {
+            Event event = eventDao.findById(listOfIds[i]).get();
+            event.setIsActive(1);
+            eventDao.save(event);
+        }
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
+    }
+
+
     @GetMapping(value = "setbiography")
     public ModelAndView setBio() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
+        modelAndView.addObject("id", user.getId());
         if (user.getIsInstructor() == 1) {
             modelAndView.addObject("user", user);
             modelAndView.setViewName("index/setbio");

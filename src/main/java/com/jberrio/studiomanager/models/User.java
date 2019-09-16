@@ -24,8 +24,8 @@ public class User {
     @Size(min = 2, max = 12)
     private String name;
 
-    @NotNull(message="Please provide your last name")
-    @Size(min=2, max = 12)
+    @NotNull(message = "Please provide your last name")
+    @Size(min = 2, max = 12)
     private String lastName;
 
     @Column(nullable = false, unique = true)
