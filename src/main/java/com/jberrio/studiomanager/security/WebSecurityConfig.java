@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -50,10 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-//                .anyRequest().authenticated()
+//                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                .anyRequest().fullyAuthenticated()
 
-                .authenticated()
+//                .authenticated()
                 .and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
                 .defaultSuccessUrl("/welcome")

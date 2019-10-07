@@ -8,6 +8,7 @@ import com.jberrio.studiomanager.models.User;
 import com.jberrio.studiomanager.models.data.EventDao;
 import com.jberrio.studiomanager.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
 
     @Autowired
@@ -37,10 +39,7 @@ public class AdminController {
     @GetMapping("/console")
     public ModelAndView getConsole() throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(auth.getPrincipal());
-        auth.getAuthorities().forEach(System.out::println);
 
-        System.out.println("im here and shouldnt be");
         return allInfoAdmin();
     }
 
