@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
@@ -24,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     @Autowired
@@ -32,25 +29,25 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private UserDao userDao;
 
     //    GIVES A LIST ALL OF ADMINS AND USERS
-    @RequestMapping(value = "console", method = RequestMethod.GET)
+    @GetMapping("/console")
     public ModelAndView getConsole() throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
+        System.out.println(auth.getPrincipal());
+        auth.getAuthorities().forEach(System.out::println);
 
+        System.out.println("im here and shouldnt be");
         return allInfoAdmin();
     }
 
 //    PROCESSES NEW DEMOTIONS OR PROMOTIONS TO USERS
 
-    @RequestMapping(value = "demote", method = RequestMethod.POST)
+    @PostMapping(value = "/demote")
     public ModelAndView demote(@RequestParam int id) throws ParseException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
         Optional<User> demotedUser = userDao.findById(id);
 
         for (Role role : demotedUser.get().getRoles()) {
@@ -65,12 +62,8 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value = "promote", method = RequestMethod.POST)
+    @PostMapping(value = "/promote")
     public ModelAndView promote(@RequestParam int id) throws ParseException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
-
         Optional<User> promotedUser = userDao.findById(id);
 
         for (Role role : promotedUser.get().getRoles()) {
@@ -85,11 +78,8 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value = "deletepast", method = RequestMethod.POST)
+    @PostMapping(value = "/deletepast")
     public ModelAndView deletePast(@RequestParam int id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
         Optional<Event> deletedEvent = eventDao.findById(id);
 
         eventDao.delete(deletedEvent.get());
@@ -98,13 +88,8 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "deletefuture", method = RequestMethod.POST)
+    @PostMapping(value = "/deletefuture")
     public ModelAndView deleteFuture(@RequestParam int id) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
         Optional<Event> deletedEvent = eventDao.findById(id);
 
         eventDao.delete(deletedEvent.get());
@@ -112,11 +97,8 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value = "makestudent", method = RequestMethod.POST)
+    @PostMapping(value = "makestudent")
     public ModelAndView makeStudent(@RequestParam int id) throws ParseException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
         Optional<User> newInstructor = userDao.findById(id);
 
         newInstructor.get().setIsInstructor(0);
@@ -126,11 +108,8 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @RequestMapping(value = "makeinstructor", method = RequestMethod.POST)
+    @PostMapping(value = "/makeinstructor")
     public ModelAndView makeInstructor(@RequestParam int id) throws ParseException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
         Optional<User> newInstructor = userDao.findById(id);
 
         newInstructor.get().setIsInstructor(1);
@@ -140,11 +119,10 @@ public class AdminController {
         return new ModelAndView("redirect:console");
     }
 
-    @GetMapping(value = "index")
+    @GetMapping(value = "/index")
     public ModelAndView index() throws ParseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
 
         List<Event> pastLoggedInEvents = new ArrayList<>();
         List<Event> futureLoggedInEvents = new ArrayList<>();
@@ -178,10 +156,8 @@ public class AdminController {
 
     //SEEDS THE CALENDAR WITH RANDOM EVENTS
 
-    @GetMapping(value = "seed")
+    @GetMapping(value = "/seed")
     public ModelAndView seed() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("redirect:/calendar");
@@ -243,10 +219,10 @@ public class AdminController {
 
     //PROCESSES ALL OF THE ADMIN NEEDED INFO
 
-    public ModelAndView allInfoAdmin() throws ParseException {
+    private ModelAndView allInfoAdmin() throws ParseException {
+        ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("id", user.getId());
 
         List<User> admins = new LinkedList<>();
@@ -300,7 +276,6 @@ public class AdminController {
         modelAndView.addObject("admins", admins);
         modelAndView.addObject("users", users);
 
-//        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.addObject("jumbo", "Welcome Admin");
         modelAndView.setViewName("admin/console");
 

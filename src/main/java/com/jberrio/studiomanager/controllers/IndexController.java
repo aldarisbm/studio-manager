@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
+@RequestMapping
 public class IndexController {
 
     @Autowired
@@ -38,7 +39,7 @@ public class IndexController {
     @Autowired
     private EventDao eventDao;
 
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("jumbo", "Log In");
