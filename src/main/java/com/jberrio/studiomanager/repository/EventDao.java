@@ -1,6 +1,6 @@
-package com.jberrio.studiomanager.models.data;
+package com.jberrio.studiomanager.repository;
 
-import com.jberrio.studiomanager.models.Event;
+import com.jberrio.studiomanager.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

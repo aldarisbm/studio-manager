@@ -1,6 +1,6 @@
-package com.jberrio.studiomanager.models.data;
+package com.jberrio.studiomanager.service;
 
-import com.jberrio.studiomanager.models.User;
+import com.jberrio.studiomanager.model.User;
 
 public interface UserService {
 

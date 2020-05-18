@@ -1,11 +1,11 @@
-package com.jberrio.studiomanager.controllers;
+package com.jberrio.studiomanager.controller;
 
 
-import com.jberrio.studiomanager.models.Event;
-import com.jberrio.studiomanager.models.User;
-import com.jberrio.studiomanager.models.data.EventDao;
-import com.jberrio.studiomanager.models.data.UserDao;
-import com.jberrio.studiomanager.models.data.UserService;
+import com.jberrio.studiomanager.model.Event;
+import com.jberrio.studiomanager.model.User;
+import com.jberrio.studiomanager.repository.EventDao;
+import com.jberrio.studiomanager.repository.UserDao;
+import com.jberrio.studiomanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

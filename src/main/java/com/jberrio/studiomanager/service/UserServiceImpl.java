@@ -1,7 +1,9 @@
-package com.jberrio.studiomanager.models.data;
+package com.jberrio.studiomanager.service;
 
-import com.jberrio.studiomanager.models.Role;
-import com.jberrio.studiomanager.models.User;
+import com.jberrio.studiomanager.model.Role;
+import com.jberrio.studiomanager.model.User;
+import com.jberrio.studiomanager.repository.RoleDao;
+import com.jberrio.studiomanager.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
 
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -42,6 +44,4 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
-
 }

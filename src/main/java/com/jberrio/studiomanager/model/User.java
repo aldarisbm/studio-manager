@@ -1,4 +1,4 @@
-package com.jberrio.studiomanager.models;
+package com.jberrio.studiomanager.model;
 
 import org.hibernate.validator.constraints.Length;
 
